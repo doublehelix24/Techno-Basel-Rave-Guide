@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1200,initial-scale=1">
+<title>After Dark · social share artwork</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&display=block">
+<style>
+* { box-sizing: border-box; }
+html,body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+body { background: #080808; color: #ecebe7; font-family: 'JetBrains Mono', monospace; }
+.poster { position: relative; width: 1200px; height: 630px; display: flex; flex-direction: column; align-items: center; background: radial-gradient(ellipse at 90% 55%,#ffad8a20,transparent 55%),radial-gradient(ellipse at 8% 20%,#c9a7ff0b,transparent 45%),#080808; }
+.poster::before { content: ''; position: absolute; inset: 32px; border: 1px solid #ecebe724; }
+.brand { display: flex; align-items: center; gap: 12px; margin-top: 52px; font-size: 15px; letter-spacing: 2px; font-weight: 700; }
+.brand img { width: 52px; height: 52px; object-fit: cover; clip-path: circle(43% at 50% 50%); }
+.brand em { font-style: normal; color: #ffad8a; }
+.cities { color: #ffad8a; font-size: 19px; font-weight: 500; letter-spacing: 3px; margin: 28px 0 18px; }
+h1 { margin: 0; font: 400 154px/.99 'Anton',Impact,'Arial Narrow',sans-serif; letter-spacing: 1px; text-align: center; }
+h1 span { display: block; }
+.outline { color: transparent; -webkit-text-stroke: 2px #ecebe7; }
+.dot { display: inline; color: #ffad8a; -webkit-text-stroke: 0; }
+.tagline { font-size: 18px; letter-spacing: 1.5px; margin: 30px 0 0; }
+.note { color: #a19b94; font-size: 13px; letter-spacing: 2px; margin: 18px 0 0; }
+.edge { position: absolute; top: 50%; color: #706a64; font-size: 12px; letter-spacing: 4px; writing-mode: vertical-rl; transform: translateY(-50%); }
+.left { left: 68px; transform: translateY(-50%) rotate(180deg); }
+.right { right: 68px; }
+</style>
+</head>
+<body>
+<main class="poster">
+  <div class="brand"><img src="../../public/techno-circle.png" alt=""><span>TECHNO CIRCLE <em>BASEL</em></span></div>
+  <p class="cities">TECHNO | ZÜRICH | BASEL</p>
+  <h1><span>AFTER</span><span class="outline">DARK<span class="dot">.</span></span></h1>
+  <p class="tagline">FIND YOUR NEXT DANCEFLOOR.</p>
+  <p class="note">ZÜRICH PICKS · BASEL COMING SOON</p>
+  <span class="edge left" aria-hidden="true">ELECTRONIC MUSIC · AFTER DARK</span>
+  <span class="edge right" aria-hidden="true">EVENTS / VENUES / MUSICAL FIT</span>
+</main>
+</body>
+</html>
