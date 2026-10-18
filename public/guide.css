@@ -259,9 +259,9 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .brand { min-height: 44px; font-size: .66rem; }
   .brand img { width: 36px; height: 36px; }
   .brand em { font-size: .59rem; }
-  .nav-links { min-width: 0; max-width: 100%; gap: 4px; padding: 4px 0 9px; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.4) transparent; }
-  nav .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.06); font-size: .84rem; font-weight: 750; }
-  nav .nav-links a:active,nav .nav-links a:focus-visible { background: rgba(255,255,255,.15); }
+  .nav-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); min-width: 0; max-width: 100%; gap: 0; padding: 0 0 5px; overflow: visible; }
+  nav .nav-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 4px; border: 0; border-radius: 0; background: transparent; font-size: .8rem; font-weight: 700; }
+  nav .nav-links a:active,nav .nav-links a:focus-visible { color: #ffb6d0; text-decoration: underline; }
   .nav-actions .icon-button,.nav-actions .version-button { min-height: 44px; min-width: 44px; }
   .nav-actions .icon-button { width: 44px; }
   .version-button span { display: none; }
@@ -301,5 +301,6 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .fit-wrap:focus-within:not(.is-open) .fit-panel { display: none; }
   .ratings .rating-grid { grid-template-columns: repeat(2,1fr); }
 }
+@media (min-width: 560px) and (max-width: 680px) { .nav-links { grid-template-columns: repeat(6,minmax(0,1fr)); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .quick-links a { transform: none !important; } .cycle-track,.tagline-track,.star { animation: none !important; } }
 @media print { .event-actions,.nav-actions,dialog { display: none !important; } .overview-table tr:not(:first-child) { break-inside: avoid; } }
