@@ -309,6 +309,7 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
 
 /* Chevron controls disclose venue images; external navigation stays in the caption. */
 .venue-expander { display: block; flex: none; }
+.venue-photo-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .venue-preview-button[aria-expanded="true"] .venue-expander,
 .venue-gallery-card[open] .venue-expander { transform: rotate(180deg); }
 .venue-figure figcaption a { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }

@@ -21,7 +21,7 @@
     'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' }
   };
 
-  function venueFigure(name, data) {
+  function venueFigure(name, data, includeDetails = false) {
     const figure = document.createElement('figure');
     figure.className = 'venue-figure';
     const image = document.createElement('img');
@@ -47,7 +47,18 @@
       note.textContent = data.note;
       caption.append(note);
     }
-    caption.append(credit, website);
+    const actions = document.createElement('div');
+    actions.className = 'venue-photo-actions';
+    if (includeDetails) {
+      const details = document.createElement('a');
+      details.href = `#${data.id}`;
+      details.className = 'venue-details-link';
+      details.textContent = 'Details';
+      details.setAttribute('aria-label', `${name} Details`);
+      actions.append(details);
+    }
+    actions.append(website);
+    caption.append(credit, actions);
     figure.append(image, caption);
     return figure;
   }
@@ -56,11 +67,21 @@
 
   function setupVenues() {
     const gallery = document.getElementById('venue-gallery');
+    const setGalleryOpen = open => {
+      gallery.querySelectorAll('.venue-gallery-card').forEach(card => {
+        if (card.open !== open) card.open = open;
+      });
+    };
+    // Native details toggles also cover keyboard activation and programmatic changes.
+    gallery.addEventListener('toggle', event => {
+      if (event.target.matches('.venue-gallery-card')) setGalleryOpen(event.target.open);
+    }, true);
     Object.entries(venues).forEach(([name, data]) => {
       const details = document.createElement('details');
       details.className = 'venue-gallery-card';
       details.id = data.id;
       const summary = document.createElement('summary');
+      summary.title = 'Expand or collapse all venue photos';
       summary.innerHTML = `<span><strong>${name}</strong><small>${data.description}</small></span><span class="venue-gallery-prompt">${venueChevron}</span>`;
       details.append(summary, venueFigure(name, data));
       gallery.append(details);
@@ -79,7 +100,6 @@
       link.href = `#${data.id}`;
       link.className = 'venue-link';
       link.textContent = name;
-      link.addEventListener('click', () => { document.getElementById(data.id).open = true; });
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'venue-preview-button';
@@ -90,7 +110,15 @@
       const panel = document.createElement('div');
       panel.className = 'venue-preview-panel';
       panel.id = `venue-preview-${index}`;
-      panel.append(venueFigure(name, data));
+      panel.append(venueFigure(name, data, true));
+      const revealVenue = () => {
+        setGalleryOpen(true);
+        wrap.classList.remove('is-open');
+        wrap.classList.add('is-dismissed');
+        button.setAttribute('aria-expanded', 'false');
+      };
+      link.addEventListener('click', revealVenue);
+      panel.querySelector('.venue-details-link').addEventListener('click', revealVenue);
       wrap.append(link, button, panel);
       nameNode.replaceWith(wrap);
       button.addEventListener('click', () => {
