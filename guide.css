@@ -99,11 +99,6 @@ section:first-child { position: relative; isolation: isolate; }
 .after-dark { display: block; white-space: nowrap; }
 @keyframes title-cycle { 0%,21% { transform: translateY(0); } 27%,48% { transform: translateY(-1.03em); } 54%,75% { transform: translateY(-2.06em); } 81%,100% { transform: translateY(-3.09em); } }
 .cover-dot { color: var(--purple); }
-.live-status { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: -2px 0 17px; font-size: .69rem; letter-spacing: .1em; font-weight: 850; }
-.live-status > span { display: inline-flex; align-items: center; min-height: 26px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); }
-.live-status > span:first-child { color: var(--teal); border-color: var(--teal); }
-.live-status > span:last-child { color: var(--muted); }
-.live-dot { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #56c6a2; box-shadow: 0 0 0 3px rgba(86,198,162,.17); }
 .kicker,h4 { color: var(--teal); }
 .hero-intro { max-width: 690px; font-size: 1.08rem; line-height: 1.75; }
 .overview-hint { display: inline-block; margin-top: 4px; padding: 8px 13px; border-radius: 10px; background: var(--facts); color: var(--muted); font-size: .83rem; }
@@ -179,8 +174,6 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .star-one { right: 8%; top: 12%; }
   .star-two { right: 18%; top: 32%; }
   .star-three,.star-five,.star-six { display: none; }
-  .live-status { font-size: .61rem; gap: 5px; }
-  .live-status > span { min-height: 24px; padding: 4px 7px; }
   .hero-intro { font-size: .96rem; }
   .overview-hint { font-size: .78rem; }
   .quick-links { flex-wrap: nowrap; overflow-x: auto; margin-right: -18px; padding: 0 18px 10px 0; scrollbar-width: thin; }
@@ -197,7 +190,7 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .overview-table td:nth-child(3) { grid-column: 1 / -1; grid-row: 3; color: var(--muted); font-size: .81rem; }
   .overview-table td:nth-child(4) { grid-column: 1 / -1; grid-row: 4; padding-top: 8px; }
   .overview-table td:last-child { grid-column: 2; grid-row: 1; font-size: .75rem; color: var(--muted); text-align: right; }
-  .overview-table td:last-child::before { content: 'from CHF '; }
+  .overview-table td:last-child::before { content: 'CHF (from) '; }
   .fit-wrap { display: block; }
   .fit-button { width: 100%; justify-content: space-between; min-height: 42px; }
   .fit-panel { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
