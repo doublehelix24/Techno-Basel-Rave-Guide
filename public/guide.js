@@ -15,10 +15,10 @@
   ];
 
   const venues = {
-    'MÄX': { id: 'venue-maex', image: 'venue-maex.jpg', alt: 'Crowd and stage lights inside MÄX Zürich', description: 'Industrial club energy', source: 'https://maexzuerich.com/', credit: 'MÄX Zürich' },
+    'MÄX': { id: 'venue-maex', image: 'venue-maex.jpg', alt: 'MÄX club interior with an open dancefloor, stage and galleries on both sides', description: 'Industrial dancefloor, stage and gallery', source: 'https://www.maag-moments.ch/maag/de/halle-mieten/maag-halle/club.html', website: 'https://maexzuerich.com/', credit: 'MAAG Moments' },
     'Warehouse ZRH': { id: 'venue-warehouse', image: 'venue-warehouse.webp', alt: 'Warehouse ZRH illuminated promotional sign', description: 'Temporary superclub · opening November 2026', source: 'https://www.warehousezrh.com/', credit: 'Warehouse ZRH', creditLabel: 'Image', note: 'Official promotional image; the venue has not opened yet.' },
     'Kaufleuten': { id: 'venue-kaufleuten', image: 'venue-kaufleuten.jpg', alt: 'Red-and-gold Kaufleuten Klubsaal with gallery', description: 'The classic red-and-gold Klubsaal', source: 'https://kaufleuten.ch/anlass-und-bankett/klubsaal/', credit: 'Kaufleuten Zürich' },
-    'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation' }
+    'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' }
   };
 
   function venueFigure(name, data) {
@@ -34,19 +34,25 @@
     heading.textContent = name;
     const description = document.createElement('span');
     description.textContent = data.description;
-    const credit = document.createElement('a');
-    credit.href = data.source;
-    credit.textContent = `${data.creditLabel || 'Photo'}: ${data.credit} ↗`;
+    const credit = document.createElement('small');
+    credit.className = 'venue-photo-credit';
+    credit.textContent = `${data.creditLabel || 'Photo'}: ${data.credit}`;
+    const website = document.createElement('a');
+    website.href = data.website || data.source;
+    website.textContent = 'Website';
+    website.setAttribute('aria-label', `${name} Website`);
     caption.append(heading, description);
     if (data.note) {
       const note = document.createElement('small');
       note.textContent = data.note;
       caption.append(note);
     }
-    caption.append(credit);
+    caption.append(credit, website);
     figure.append(image, caption);
     return figure;
   }
+
+  const venueChevron = '<svg class="venue-expander" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>';
 
   function setupVenues() {
     const gallery = document.getElementById('venue-gallery');
@@ -55,7 +61,7 @@
       details.className = 'venue-gallery-card';
       details.id = data.id;
       const summary = document.createElement('summary');
-      summary.innerHTML = `<span><strong>${name}</strong><small>${data.description}</small></span><span class="venue-gallery-prompt">View photo ↗</span>`;
+      summary.innerHTML = `<span><strong>${name}</strong><small>${data.description}</small></span><span class="venue-gallery-prompt">${venueChevron}</span>`;
       details.append(summary, venueFigure(name, data));
       gallery.append(details);
     });
@@ -77,11 +83,13 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'venue-preview-button';
-      button.setAttribute('aria-label', `Preview ${name} photo`);
+      button.setAttribute('aria-label', `Show ${name} venue image`);
+      button.setAttribute('aria-controls', `venue-preview-${index}`);
       button.setAttribute('aria-expanded', 'false');
-      button.textContent = 'Photo ⌄';
+      button.innerHTML = venueChevron;
       const panel = document.createElement('div');
       panel.className = 'venue-preview-panel';
+      panel.id = `venue-preview-${index}`;
       panel.append(venueFigure(name, data));
       wrap.append(link, button, panel);
       nameNode.replaceWith(wrap);
