@@ -23,38 +23,38 @@
 
   // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
   const artists = {
-    'ALT8': { spotify: '7uS4z6GqvIIdZbVq327Ak9', youtube: 'alt8music' },
-    'Kichta': { spotify: '7q6gx2J7fy969LK4hGRw8Y', youtube: 'kichtaofficial' },
-    'ROW1': { spotify: '0UuarPj3exthni2ZBHrRqj' },
-    'Marco Carola': { spotify: '2p8O7NCyfWf1sIZamrU9N1', youtube: 'marcocarolaofficial' },
-    'Loco Dice': { spotify: '4rbw4Z9Hjn6n9x5oYzZe7P', youtube: 'LocoDiceOFC' },
-    'Seth Troxler': { spotify: '3JkLFcTej6tdwZoQT6Nx4B', youtube: 'sethtroxlermusic' },
-    'Fleur Shore': { spotify: '7GyRA9n7JVslQGcbo72Dil', youtube: 'fleur_shore' },
-    'Dangel Twins': { spotify: '4bTaaH6xPoOsHSdSuVP4Ww', youtube: 'dangeltwins' },
-    'Axwell': { spotify: '1xNmvlEiICkRlRGqlNFZ43', youtube: 'axwell' },
-    'Claptone': { spotify: '4mncDFjVLUa3s025Tct3Ry', youtube: 'CLAPTONEOFFICIAL' },
-    'Oliver Heldens': { spotify: '5nki7yRhxgM509M5ADlN1p', youtube: 'OliverHeldens' },
-    'Gil Glaze': { spotify: '6pNzdcgIaKQKsYNS5agP4V', youtube: 'gilglaze' },
-    'HUGEL': { spotify: '5PlfkPxwCpRRWQJBxCa0By', youtube: 'HUGELBeats' },
-    'AMÉMÉ': { spotify: '1txb9Qg5lJ3KATxPcIYyvO' },
-    'HoneyLuv': { spotify: '1sl3gVNz3Nxd4poA8f76sl', youtube: 'honeyluvmusic' },
-    'Juany Bravo': { spotify: '7FWTTxJZ35ZNqhFCLOE3zm', youtube: 'juanybravomusic' },
-    'MoBlack': { spotify: '6Je4hal6B5wiRd46aeswrs' },
-    'Charlotte de Witte': { spotify: '1lJhME1ZpzsEa5M0wW6Mso', youtube: 'charlottedewittemusic' },
-    'Adiel': { spotify: '1yetl1fEx0mE16k164jXvw' },
-    'FJAAK': { spotify: '4qG1qjeHfkASTdyRGbLWbV', youtube: 'FJAAKBERLIN' },
-    'NHŨ': { spotify: '1zceUCoBvAnJf8TZSyTjgx' },
-    'Sanem': { spotify: '6IX6e4Mnx8RwzMEx9AYe6H', youtube: 'SANEM.musiic' },
-    'ARTBAT': { spotify: '3BkRu2TGd2I1uBxZKddfg1', youtube: 'ARTBAT' },
-    'Miss Monique': { spotify: '29TpNOsTNYbLb6Xa10H0PR', youtube: 'djmissmonique' },
-    'Mahmut Orhan': { spotify: '3t8WiyalpvnB9AObcMufiE', youtube: 'Mahmut_Orhan' },
-    'Eric Prydz': { spotify: '5sm0jQ1mq0dusiLtDJ2b4R', youtube: 'ericprydz' },
-    'Mind Against': { spotify: '48LWLoeY0dhwaiX1FRsn72', youtube: 'mindagainstOFC' },
-    'Innellea': { spotify: '71rqI5HtraA3qXBwatyG6e', youtube: 'Innellea' },
-    'Yulia Niko': { spotify: '3RUNl0j2ISAQdC2Fxhj2q3', youtube: 'yulianikomusic' },
-    'Ardour': { spotify: '29FluI1TFyBYE4Qb9bl99D' },
-    'Paul van Dyk': { spotify: '7wU1naftD3lNq7rNsiDvOR', youtube: 'PaulvanDyk' },
-    'John Summit': { spotify: '7kNqXtgeIwFtelmRjWv205', youtube: 'JohnSummit' }
+    'ALT8': { spotify: '7uS4z6GqvIIdZbVq327Ak9', image: '4718be17a7426036ce46be48', youtube: 'alt8music' },
+    'Kichta': { spotify: '7q6gx2J7fy969LK4hGRw8Y', image: 'e90ad4dc96f7baa52a69589d', youtube: 'kichtaofficial' },
+    'ROW1': { spotify: '0UuarPj3exthni2ZBHrRqj', image: 'e223cc6091b3d7cbce36edaf' },
+    'Marco Carola': { spotify: '2p8O7NCyfWf1sIZamrU9N1', image: '26e409c252b0f57d3c64b38b', youtube: 'marcocarolaofficial' },
+    'Loco Dice': { spotify: '4rbw4Z9Hjn6n9x5oYzZe7P', image: 'e7ddcc2ca4285d89e0c97c68', youtube: 'LocoDiceOFC' },
+    'Seth Troxler': { spotify: '3JkLFcTej6tdwZoQT6Nx4B', image: 'ae415c295c042f2193594a8e', youtube: 'sethtroxlermusic' },
+    'Fleur Shore': { spotify: '7GyRA9n7JVslQGcbo72Dil', image: 'f11a80f81b8218b063019e0d', youtube: 'fleur_shore' },
+    'Dangel Twins': { spotify: '4bTaaH6xPoOsHSdSuVP4Ww', image: '95659a50b603fd2ca7b7e718', youtube: 'dangeltwins' },
+    'Axwell': { spotify: '1xNmvlEiICkRlRGqlNFZ43', image: '0c9ea880aff35b763cfecee1', youtube: 'axwell' },
+    'Claptone': { spotify: '4mncDFjVLUa3s025Tct3Ry', image: 'f8bbaf81da9d83a9a186715e', youtube: 'CLAPTONEOFFICIAL' },
+    'Oliver Heldens': { spotify: '5nki7yRhxgM509M5ADlN1p', image: 'e0de3617061247aa35ff7865', youtube: 'OliverHeldens' },
+    'Gil Glaze': { spotify: '6pNzdcgIaKQKsYNS5agP4V', image: 'a396e56ca66119fed6b6aabb', youtube: 'gilglaze' },
+    'HUGEL': { spotify: '5PlfkPxwCpRRWQJBxCa0By', image: 'f2f0c84b86e48dd70d9bcc59', youtube: 'HUGELBeats' },
+    'AMÉMÉ': { spotify: '1txb9Qg5lJ3KATxPcIYyvO', image: 'd12f7fddcf0b2c4273555966' },
+    'HoneyLuv': { spotify: '1sl3gVNz3Nxd4poA8f76sl', image: '7dd0fc2f44169075bacdc228', youtube: 'honeyluvmusic' },
+    'Juany Bravo': { spotify: '7FWTTxJZ35ZNqhFCLOE3zm', image: 'c91e1f60a4ee0bcf8e2d04c5', youtube: 'juanybravomusic' },
+    'MoBlack': { spotify: '6Je4hal6B5wiRd46aeswrs', image: 'd4aba6e62023b056c348e045' },
+    'Charlotte de Witte': { spotify: '1lJhME1ZpzsEa5M0wW6Mso', image: '2d6285111ab8944150879a05', youtube: 'charlottedewittemusic' },
+    'Adiel': { spotify: '1yetl1fEx0mE16k164jXvw', image: '073ddd3683ccf8e3357102c1' },
+    'FJAAK': { spotify: '4qG1qjeHfkASTdyRGbLWbV', image: 'b399c0fb7440577afe194eb5', youtube: 'FJAAKBERLIN' },
+    'NHŨ': { spotify: '1zceUCoBvAnJf8TZSyTjgx', image: '84cf64dec5204802e1356952' },
+    'Sanem': { spotify: '6IX6e4Mnx8RwzMEx9AYe6H', image: '00d2b7e7e5ce186824848977', youtube: 'SANEM.musiic' },
+    'ARTBAT': { spotify: '3BkRu2TGd2I1uBxZKddfg1', image: '2634ca41d16e9ba796dc96cb', youtube: 'ARTBAT' },
+    'Miss Monique': { spotify: '29TpNOsTNYbLb6Xa10H0PR', image: 'b8028862eeb5ccaf303d71ce', youtube: 'djmissmonique' },
+    'Mahmut Orhan': { spotify: '3t8WiyalpvnB9AObcMufiE', image: '9981d0fb9b0cfa3ac351be78', youtube: 'Mahmut_Orhan' },
+    'Eric Prydz': { spotify: '5sm0jQ1mq0dusiLtDJ2b4R', image: '4170f1e4c72c0a9fc2eddc1d', youtube: 'ericprydz' },
+    'Mind Against': { spotify: '48LWLoeY0dhwaiX1FRsn72', image: '2f886bd1377fbbeb4e7a67fa', youtube: 'mindagainstOFC' },
+    'Innellea': { spotify: '71rqI5HtraA3qXBwatyG6e', image: '6aa6915de01025952b2abfdc', youtube: 'Innellea' },
+    'Yulia Niko': { spotify: '3RUNl0j2ISAQdC2Fxhj2q3', image: '78445d46e5638aa7c1fd44fc', youtube: 'yulianikomusic' },
+    'Ardour': { spotify: '29FluI1TFyBYE4Qb9bl99D', image: '418cccfd28d3ffd3cd69d227' },
+    'Paul van Dyk': { spotify: '7wU1naftD3lNq7rNsiDvOR', image: 'f6a2ae0e81e8a35f2b29a14d', youtube: 'PaulvanDyk' },
+    'John Summit': { spotify: '7kNqXtgeIwFtelmRjWv205', image: '20662b32f3dbabad755dfb53', youtube: 'JohnSummit' }
   };
 
   function venueFigure(name, data, includeDetails = false) {
@@ -191,7 +191,13 @@
     });
   }
 
-  const ARTIST_PANEL_WIDTH = 160; // Matches .artist-panel in guide.css.
+  const ARTIST_PANEL_WIDTH = 180; // Matches .artist-panel in guide.css.
+  const platformIcons = {
+    Spotify: '<svg class="platform-icon is-spotify" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>',
+    YouTube: '<svg class="platform-icon is-youtube" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.87.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>'
+  };
+  // Spotify serves the artist's own profile image; the panel loads it only when first opened.
+  const spotifyImage = (hash, size) => `https://i.scdn.co/image/ab676161${size === 320 ? '00005174' : '0000f178'}${hash}`;
 
   function setupArtists() {
     const closeArtist = wrap => {
@@ -219,10 +225,26 @@
         if (!href) return;
         const link = document.createElement('a');
         link.href = href;
-        link.textContent = label;
+        link.innerHTML = platformIcons[label];
+        link.append(label);
         link.setAttribute('aria-label', `${name} on ${label}`);
         panel.append(link);
       });
+      const showImage = () => {
+        if (!data.image || panel.querySelector('.artist-photo')) return;
+        const photo = document.createElement('span');
+        photo.className = 'artist-photo';
+        const image = document.createElement('img');
+        image.src = spotifyImage(data.image, 160);
+        image.srcset = `${spotifyImage(data.image, 160)} 160w, ${spotifyImage(data.image, 320)} 320w`;
+        image.sizes = `${ARTIST_PANEL_WIDTH}px`;
+        image.alt = `${name} artist photo`;
+        image.decoding = 'async';
+        const credit = document.createElement('small');
+        credit.textContent = 'Image: Spotify';
+        photo.append(image, credit);
+        panel.prepend(photo);
+      };
       wrap.append(button, panel);
       // Keep trailing punctuation on the same line as the name button.
       const next = node.nextSibling;
@@ -237,6 +259,7 @@
         const open = !wrap.classList.contains('is-open');
         document.querySelectorAll('.artist-wrap.is-open').forEach(closeArtist);
         if (open) {
+          showImage();
           // Shift the fixed-width panel before showing it so it never overflows the facts table.
           const bounds = wrap.closest('.table-wrap').getBoundingClientRect();
           const left = wrap.getBoundingClientRect().left;
