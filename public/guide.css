@@ -215,7 +215,7 @@ td { border-color: var(--line); }
 .fit-panel-grid > span { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding: 4px 0; }
 .fit-panel-grid strong { color: var(--teal); }
 .fit-panel-link { display: inline-block; margin-top: 12px; font-size: .76rem; font-weight: 750; }
-.event-tag { display: table; margin: 0 0 6px; padding: 1px 9px; border: 1px solid currentColor; border-radius: 999px; color: var(--teal); font-size: .66rem; font-weight: 800; letter-spacing: .08em; line-height: 1.7; text-transform: uppercase; }
+.event-tag { display: block; width: fit-content; margin: 0 0 8px; padding: 4px 11px; border: 1px solid currentColor; border-radius: 999px; color: var(--teal); font-size: .66rem; font-weight: 800; letter-spacing: .08em; line-height: 1.7; text-transform: uppercase; }
 .date-preview { position: relative; display: inline-flex; align-items: center; }
 .date-preview-button { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin-left: -4px; padding: 0 8px; border: 0; background: transparent; color: var(--teal); cursor: pointer; }
 .date-preview-button:hover,.date-preview-button[aria-expanded="true"] { color: var(--purple); }
@@ -322,7 +322,6 @@ dialog.event-dialog[open] { display: flex; flex-direction: column; }
 .ticket-options-chevron { display: block; }
 .ticket-options[open] .ticket-options-chevron { transform: rotate(180deg); }
 .ticket-options-panel { position: absolute; z-index: 12; top: calc(100% + 8px); right: 0; width: min(300px,calc(100vw - 48px)); padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); box-shadow: 0 22px 60px rgba(21,11,30,.25); color: var(--ink); text-align: left; white-space: normal; font-size: .78rem; font-weight: 400; line-height: 1.5; }
-.ticket-options-panel > strong { display: block; margin-bottom: 4px; color: var(--teal); font-size: .95rem; }
 .ticket-options-panel p { margin: 0 0 10px; color: var(--muted); }
 .ticket-options-panel dl { margin: 0 0 12px; }
 .ticket-options-panel dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }

@@ -674,6 +674,7 @@
   // Rating labels that name a genre share that genre's colour; the rest are character traits.
   const RATING_GENRES = { Techno: 'Techno', House: 'House', 'Melodic fans': 'Melodic', 'Vocal fans': 'Vocal', Trance: 'Trance', Melody: 'Melodic', Vocals: 'Vocal' };
   const clock = time => `${time.slice(0, 2)}:${time.slice(2, 4)}`;
+  const dayNumber = date => Date.UTC(+date.slice(0, 4), +date.slice(4, 6) - 1, +date.slice(6, 8)) / 864e5;
   const longDate = iso => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
     .format(new Date(`${iso}T00:00:00Z`));
 
@@ -701,7 +702,8 @@
     const times = [
       [event.doors ? 'Doors' : 'Start', clock(event.start)],
       ...(event.show ? [['Show', clock(event.show)]] : []),
-      ['End', event.endDate === event.date ? end : `${dayLabel(isoDate(event.endDate))} · ${end}`]
+      // A same-day or next-morning end needs no date; only longer runs name the end day.
+      ['End', dayNumber(event.endDate) - dayNumber(event.date) <= 1 ? end : `${dayLabel(isoDate(event.endDate))} · ${end}`]
     ];
     const list = document.createElement('dl');
     times.forEach(([term, value]) => {
