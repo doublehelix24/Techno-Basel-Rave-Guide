@@ -282,6 +282,114 @@
     });
   }
 
+  const GENRES = ['Techno', 'House', 'Trance', 'Melodic', 'Vocal'];
+  const STRONG_FIT = 7;
+  const isoDate = date => `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`;
+  const monthName = month => new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(Date.UTC(+month.slice(0, 4), +month.slice(4, 6) - 1, 1)));
+
+  // Pairs each event with its overview row and detail section, reading price and genre fit from the markup.
+  function guideEvents() {
+    const rows = [...document.querySelectorAll('.overview-table tr')].slice(1);
+    return events.map((event, index) => {
+      const row = rows[index];
+      const section = document.getElementById(event.id);
+      if (!row || !section) return null;
+      const priceCell = row.cells[4];
+      const genres = [...section.querySelectorAll('.ratings .taste .rating')]
+        .filter(item => Number(item.querySelector('strong')?.textContent) >= STRONG_FIT)
+        .map(item => item.querySelector('span').textContent.replace(/ fans$/, '').trim());
+      return {
+        ...event,
+        row,
+        section,
+        title: row.cells[1].querySelector('strong').textContent.trim(),
+        venue: event.location.split(',')[0],
+        price: parseFloat((priceCell.querySelector('.price-link') || priceCell).textContent),
+        genres,
+        iso: isoDate(event.date),
+        month: event.date.slice(0, 6),
+        quickLink: document.querySelector(`.quick-links a[href="#${event.id}"]`)
+      };
+    }).filter(Boolean);
+  }
+
+  const filterListeners = [];
+
+  function setupFilters(items) {
+    const overview = document.querySelector('.overview-wrap');
+    if (!overview || !items.length) return () => true;
+    const months = [...new Set(items.map(item => item.month))];
+    const prices = [50, 80, 100, 120];
+    const first = items[0].iso;
+    const last = items[items.length - 1].iso;
+    const panel = document.createElement('details');
+    panel.className = 'event-filters';
+    panel.open = matchMedia('(min-width: 681px)').matches;
+    panel.innerHTML = `
+      <summary><span>Filter events</span><span class="filter-count" aria-hidden="true"></span></summary>
+      <div class="filter-grid">
+        <label><span>Month</span><select data-filter="month"><option value="">Any month</option>${months.map(month => `<option value="${month}">${monthName(month)}</option>`).join('')}</select></label>
+        <label><span>From</span><input type="date" data-filter="from" min="${first}" max="${last}"></label>
+        <label><span>Until</span><input type="date" data-filter="until" min="${first}" max="${last}"></label>
+        <label><span>Price (from)</span><select data-filter="price"><option value="">Any price</option>${prices.map(price => `<option value="${price}">Up to CHF ${price}</option>`).join('')}</select></label>
+      </div>
+      <fieldset class="filter-genres"><legend>Genre <small>· taste fit ${STRONG_FIT}+/10</small></legend><div class="genre-chips">${GENRES.map(genre => `<button type="button" aria-pressed="false" data-genre="${genre}">${genre}</button>`).join('')}</div></fieldset>
+      <div class="filter-footer"><p class="filter-status" role="status"></p><button type="button" class="filter-reset" hidden>Reset filters</button></div>`;
+    overview.before(panel);
+    const empty = document.createElement('p');
+    empty.className = 'filter-empty';
+    empty.hidden = true;
+    empty.innerHTML = 'No events match these filters. <button type="button" class="filter-reset">Reset filters</button>';
+    overview.after(empty);
+
+    const control = name => panel.querySelector(`[data-filter="${name}"]`);
+    const selectedGenres = () => [...panel.querySelectorAll('[data-genre][aria-pressed="true"]')].map(button => button.dataset.genre);
+    const matches = item => {
+      const month = control('month').value;
+      const from = control('from').value;
+      const until = control('until').value;
+      const price = Number(control('price').value);
+      const genres = selectedGenres();
+      return (!month || item.month === month)
+        && (!from || item.iso >= from)
+        && (!until || item.iso <= until)
+        && (!price || item.price <= price)
+        && (!genres.length || genres.some(genre => item.genres.includes(genre)));
+    };
+    const apply = () => {
+      let shown = 0;
+      items.forEach(item => {
+        const visible = matches(item);
+        item.row.hidden = !visible;
+        if (item.quickLink) item.quickLink.hidden = !visible;
+        if (visible) shown++;
+      });
+      const active = [...panel.querySelectorAll('[data-filter]')].filter(input => input.value).length + selectedGenres().length;
+      panel.querySelector('.filter-status').textContent = `Showing ${shown} of ${items.length} events`;
+      panel.querySelector('.filter-count').textContent = active ? `${active} active` : '';
+      document.querySelectorAll('.filter-reset').forEach(button => { button.hidden = !active; });
+      overview.hidden = !shown;
+      empty.hidden = Boolean(shown);
+      filterListeners.forEach(listener => listener());
+    };
+    panel.addEventListener('input', apply);
+    panel.addEventListener('click', event => {
+      const genre = event.target.closest('[data-genre]');
+      if (!genre) return;
+      genre.setAttribute('aria-pressed', String(genre.getAttribute('aria-pressed') !== 'true'));
+      apply();
+    });
+    document.querySelectorAll('.filter-reset').forEach(button => button.addEventListener('click', () => {
+      panel.querySelectorAll('[data-filter]').forEach(input => { input.value = ''; });
+      panel.querySelectorAll('[data-genre]').forEach(genre => genre.setAttribute('aria-pressed', 'false'));
+      apply();
+      panel.querySelector('summary').focus();
+    }));
+    apply();
+    return matches;
+  }
+
   const escapeIcs = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -466,6 +574,8 @@
   setupEvents();
   setupVenues();
   setupArtists();
+  const items = guideEvents();
+  setupFilters(items);
   setupTheme();
   setupDialog();
 })();
