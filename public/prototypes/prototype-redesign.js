@@ -4,15 +4,15 @@
   'use strict';
 
   const variants = [
+    { key: 'D', name: 'Chrome', logo: 'recolored silver' },
+    { key: 'H', name: 'Briefing', logo: 'original' },
     { key: 'current', name: 'Current design', logo: 'original' },
     { key: 'A', name: 'Bunker', logo: 'original' },
     { key: 'B', name: 'Pulse', logo: 'original' },
     { key: 'C', name: 'Acid', logo: 'recolored lime' },
-    { key: 'D', name: 'Chrome', logo: 'recolored silver' },
     { key: 'E', name: 'Infrared', logo: 'recolored red' },
     { key: 'F', name: 'Night Map', logo: 'original' },
-    { key: 'G', name: 'Sunset Radio', logo: 'original' },
-    { key: 'H', name: 'Briefing', logo: 'original' }
+    { key: 'G', name: 'Sunset Radio', logo: 'original' }
   ];
 
   const params = new URLSearchParams(location.search);
@@ -22,8 +22,8 @@
     node.querySelectorAll('img[src^="venue-"]').forEach(img => { img.src = `../${img.getAttribute('src')}`; });
   }))).observe(document.documentElement, { childList: true, subtree: true });
 
-  const requested = (params.get('variant') || 'A').toUpperCase();
-  const current = variants.find(v => v.key.toUpperCase() === requested) || variants[1];
+  const requested = (params.get('variant') || variants[0].key).toUpperCase();
+  const current = variants.find(v => v.key.toUpperCase() === requested) || variants[0];
   if (current.key !== 'current') document.documentElement.dataset.variant = current.key;
 
   const filters = `
