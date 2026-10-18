@@ -256,11 +256,14 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .venue-preview:hover:not(.is-open) .venue-preview-panel,.venue-preview:focus-within:not(.is-open) .venue-preview-panel { display: none; }
   .venue-preview-panel { left: 0; }
   nav .inner { overflow: visible; padding: 7px 12px 0; }
-  .brand { font-size: .66rem; }
+  .brand { min-height: 44px; font-size: .66rem; }
   .brand img { width: 36px; height: 36px; }
   .brand em { font-size: .59rem; }
-  .nav-links { gap: 16px; }
-  nav .nav-links a { font-size: .72rem; }
+  .nav-links { min-width: 0; max-width: 100%; gap: 4px; padding: 4px 0 9px; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.4) transparent; }
+  nav .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.06); font-size: .84rem; font-weight: 750; }
+  nav .nav-links a:active,nav .nav-links a:focus-visible { background: rgba(255,255,255,.15); }
+  .nav-actions .icon-button,.nav-actions .version-button { min-height: 44px; min-width: 44px; }
+  .nav-actions .icon-button { width: 44px; }
   .version-button span { display: none; }
   main { padding: 12px 10px 30px; }
   section { padding: 26px 18px; }
