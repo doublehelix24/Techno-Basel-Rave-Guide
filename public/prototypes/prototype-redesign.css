@@ -79,7 +79,7 @@ footer { padding-bottom: 90px !important; }
 [data-variant="A"] .facts { background: transparent; }
 [data-variant="A"] .facts td:first-child { font-family: var(--mono); font-weight: 500; }
 [data-variant="A"] .fit-button,[data-variant="A"] .calendar-link { border-radius: 0; font-family: var(--mono); font-size: .75rem; background: transparent; }
-[data-variant="A"] .fit-panel,[data-variant="A"] .venue-preview-panel,[data-variant="A"] .ticket-options-panel,[data-variant="A"] .venue-gallery-card { border-radius: 0; background: #111; }
+[data-variant="A"] .fit-panel,[data-variant="A"] .venue-preview-panel,[data-variant="A"] .ticket-options-panel,[data-variant="A"] .artist-panel,[data-variant="A"] .venue-gallery-card { border-radius: 0; background: #111; }
 [data-variant="A"] .rating meter { border-radius: 0; height: 6px; }
 [data-variant="A"] .rating meter::-webkit-meter-bar { border-radius: 0; height: 6px; }
 [data-variant="A"] .rating meter::-webkit-meter-optimum-value { border-radius: 0; }
@@ -140,7 +140,7 @@ footer { padding-bottom: 90px !important; }
 [data-variant="C"] .facts td:first-child { font-family: var(--mono); }
 [data-variant="C"] .fit-button { border-radius: 0; border: 2px solid var(--teal); background: transparent; font-family: var(--mono); }
 [data-variant="C"] .calendar-link { border-radius: 0; background: var(--teal); color: #000; border: 0; font-family: var(--mono); }
-[data-variant="C"] .fit-panel,[data-variant="C"] .venue-preview-panel,[data-variant="C"] .ticket-options-panel,[data-variant="C"] dialog { border-radius: 0; border: 2px solid var(--teal); background: #0b0b0b; box-shadow: 8px 8px 0 #000; }
+[data-variant="C"] .fit-panel,[data-variant="C"] .venue-preview-panel,[data-variant="C"] .ticket-options-panel,[data-variant="C"] .artist-panel,[data-variant="C"] dialog { border-radius: 0; border: 2px solid var(--teal); background: #0b0b0b; box-shadow: 8px 8px 0 #000; }
 [data-variant="C"] .venue-gallery-card { border-radius: 0; border: 2px solid var(--line); }
 [data-variant="C"] .venue-gallery-card[open] { border-color: var(--teal); }
 [data-variant="C"] .rating meter { border-radius: 0; height: 10px; }
@@ -212,7 +212,7 @@ footer { padding-bottom: 90px !important; }
 [data-variant="D"] .table-wrap { border-radius: 18px; }
 [data-variant="D"] th { background: var(--head); color: var(--teal); font-weight: 600; }
 [data-variant="D"] .fit-button,[data-variant="D"] .calendar-link { background: rgba(143,220,255,.08); border-color: var(--line); }
-[data-variant="D"] .fit-panel,[data-variant="D"] .venue-preview-panel,[data-variant="D"] .ticket-options-panel,[data-variant="D"] dialog { background: rgba(14,19,30,.92); backdrop-filter: blur(20px); border-color: var(--line); }
+[data-variant="D"] .fit-panel,[data-variant="D"] .venue-preview-panel,[data-variant="D"] .ticket-options-panel,[data-variant="D"] .artist-panel,[data-variant="D"] dialog { background: rgba(14,19,30,.92); backdrop-filter: blur(20px); border-color: var(--line); }
 [data-variant="D"] .venue-gallery-card { background: rgba(255,255,255,.03); }
 [data-variant="D"] .venue-gallery-card[open] { background: rgba(255,255,255,.06); }
 /* Overview as a two-column card grid at every width */

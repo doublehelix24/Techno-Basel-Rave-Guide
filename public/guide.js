@@ -21,6 +21,42 @@
     'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' }
   };
 
+  // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
+  const artists = {
+    'ALT8': { spotify: '7uS4z6GqvIIdZbVq327Ak9', youtube: 'alt8music' },
+    'Kichta': { spotify: '7q6gx2J7fy969LK4hGRw8Y', youtube: 'kichtaofficial' },
+    'ROW1': { spotify: '0UuarPj3exthni2ZBHrRqj' },
+    'Marco Carola': { spotify: '2p8O7NCyfWf1sIZamrU9N1', youtube: 'marcocarolaofficial' },
+    'Loco Dice': { spotify: '4rbw4Z9Hjn6n9x5oYzZe7P', youtube: 'LocoDiceOFC' },
+    'Seth Troxler': { spotify: '3JkLFcTej6tdwZoQT6Nx4B', youtube: 'sethtroxlermusic' },
+    'Fleur Shore': { spotify: '7GyRA9n7JVslQGcbo72Dil', youtube: 'fleur_shore' },
+    'Dangel Twins': { spotify: '4bTaaH6xPoOsHSdSuVP4Ww', youtube: 'dangeltwins' },
+    'Axwell': { spotify: '1xNmvlEiICkRlRGqlNFZ43', youtube: 'axwell' },
+    'Claptone': { spotify: '4mncDFjVLUa3s025Tct3Ry', youtube: 'CLAPTONEOFFICIAL' },
+    'Oliver Heldens': { spotify: '5nki7yRhxgM509M5ADlN1p', youtube: 'OliverHeldens' },
+    'Gil Glaze': { spotify: '6pNzdcgIaKQKsYNS5agP4V', youtube: 'gilglaze' },
+    'HUGEL': { spotify: '5PlfkPxwCpRRWQJBxCa0By', youtube: 'HUGELBeats' },
+    'AMÉMÉ': { spotify: '1txb9Qg5lJ3KATxPcIYyvO' },
+    'HoneyLuv': { spotify: '1sl3gVNz3Nxd4poA8f76sl', youtube: 'honeyluvmusic' },
+    'Juany Bravo': { spotify: '7FWTTxJZ35ZNqhFCLOE3zm', youtube: 'juanybravomusic' },
+    'MoBlack': { spotify: '6Je4hal6B5wiRd46aeswrs' },
+    'Charlotte de Witte': { spotify: '1lJhME1ZpzsEa5M0wW6Mso', youtube: 'charlottedewittemusic' },
+    'Adiel': { spotify: '1yetl1fEx0mE16k164jXvw' },
+    'FJAAK': { spotify: '4qG1qjeHfkASTdyRGbLWbV', youtube: 'FJAAKBERLIN' },
+    'NHŨ': { spotify: '1zceUCoBvAnJf8TZSyTjgx' },
+    'Sanem': { spotify: '6IX6e4Mnx8RwzMEx9AYe6H', youtube: 'SANEM.musiic' },
+    'ARTBAT': { spotify: '3BkRu2TGd2I1uBxZKddfg1', youtube: 'ARTBAT' },
+    'Miss Monique': { spotify: '29TpNOsTNYbLb6Xa10H0PR', youtube: 'djmissmonique' },
+    'Mahmut Orhan': { spotify: '3t8WiyalpvnB9AObcMufiE', youtube: 'Mahmut_Orhan' },
+    'Eric Prydz': { spotify: '5sm0jQ1mq0dusiLtDJ2b4R', youtube: 'ericprydz' },
+    'Mind Against': { spotify: '48LWLoeY0dhwaiX1FRsn72', youtube: 'mindagainstOFC' },
+    'Innellea': { spotify: '71rqI5HtraA3qXBwatyG6e', youtube: 'Innellea' },
+    'Yulia Niko': { spotify: '3RUNl0j2ISAQdC2Fxhj2q3', youtube: 'yulianikomusic' },
+    'Ardour': { spotify: '29FluI1TFyBYE4Qb9bl99D' },
+    'Paul van Dyk': { spotify: '7wU1naftD3lNq7rNsiDvOR', youtube: 'PaulvanDyk' },
+    'John Summit': { spotify: '7kNqXtgeIwFtelmRjWv205', youtube: 'JohnSummit' }
+  };
+
   function venueFigure(name, data, includeDetails = false) {
     const figure = document.createElement('figure');
     figure.className = 'venue-figure';
@@ -155,6 +191,74 @@
     });
   }
 
+  const ARTIST_PANEL_WIDTH = 160; // Matches .artist-panel in guide.css.
+
+  function setupArtists() {
+    const closeArtist = wrap => {
+      wrap.classList.remove('is-open');
+      wrap.querySelector('button').setAttribute('aria-expanded', 'false');
+    };
+    document.querySelectorAll('.facts .artist').forEach((node, index) => {
+      const name = node.textContent.trim();
+      const data = artists[name];
+      if (!data) return;
+      const wrap = document.createElement('span');
+      wrap.className = 'artist-wrap';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'artist-button';
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-controls', `artist-links-${index}`);
+      button.innerHTML = `${venueChevron}<span class="sr-only">, artist profiles</span>`;
+      button.prepend(name);
+      const panel = document.createElement('span');
+      panel.className = 'artist-panel';
+      panel.id = `artist-links-${index}`;
+      [['Spotify', data.spotify && `https://open.spotify.com/artist/${data.spotify}`],
+       ['YouTube', data.youtube && `https://www.youtube.com/@${data.youtube}`]].forEach(([label, href]) => {
+        if (!href) return;
+        const link = document.createElement('a');
+        link.href = href;
+        link.textContent = label;
+        link.setAttribute('aria-label', `${name} on ${label}`);
+        panel.append(link);
+      });
+      wrap.append(button, panel);
+      // Keep trailing punctuation on the same line as the name button.
+      const next = node.nextSibling;
+      const punctuation = next?.nodeType === Node.TEXT_NODE && next.textContent.match(/^[,.;:]/)?.[0];
+      if (punctuation) {
+        next.textContent = next.textContent.slice(1);
+        wrap.append(punctuation);
+      }
+      node.replaceWith(wrap);
+      wrap.closest('.table-wrap')?.classList.add('has-artists');
+      button.addEventListener('click', () => {
+        const open = !wrap.classList.contains('is-open');
+        document.querySelectorAll('.artist-wrap.is-open').forEach(closeArtist);
+        if (open) {
+          // Shift the fixed-width panel before showing it so it never overflows the facts table.
+          const bounds = wrap.closest('.table-wrap').getBoundingClientRect();
+          const left = wrap.getBoundingClientRect().left;
+          panel.style.left = `${Math.min(0, bounds.right - 8 - (left + ARTIST_PANEL_WIDTH))}px`;
+        }
+        wrap.classList.toggle('is-open', open);
+        button.setAttribute('aria-expanded', String(open));
+      });
+    });
+    document.addEventListener('click', event => {
+      if (event.target.closest('.artist-wrap')) return;
+      document.querySelectorAll('.artist-wrap.is-open').forEach(closeArtist);
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      document.querySelectorAll('.artist-wrap.is-open').forEach(wrap => {
+        if (wrap.contains(document.activeElement)) wrap.querySelector('button').focus();
+        closeArtist(wrap);
+      });
+    });
+  }
+
   const escapeIcs = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -185,7 +289,8 @@
 
   function downloadCalendar(event, section) {
     const title = section.querySelector('h2').textContent.trim();
-    const sourceUrl = section.querySelector('.facts a[href]')?.href || section.querySelector('.small a[href]')?.href;
+    const factLink = [...section.querySelectorAll('.facts a[href]')].find(link => !link.closest('.artist-panel'));
+    const sourceUrl = factLink?.href || section.querySelector('.small a[href]')?.href;
     const blob = new Blob([calendarText(event, title, sourceUrl)], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -337,6 +442,7 @@
 
   setupEvents();
   setupVenues();
+  setupArtists();
   setupTheme();
   setupDialog();
 })();
