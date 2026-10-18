@@ -6,8 +6,8 @@
   const variants = [
     { key: 'D', name: 'Chrome', logo: 'recolored silver' },
     { key: 'H', name: 'Briefing', logo: 'original' },
-    { key: 'current', name: 'Current design', logo: 'original' },
-    { key: 'A', name: 'Bunker', logo: 'original' },
+    { key: 'current', name: 'Current design · Bunker', logo: 'original' },
+    { key: 'I', name: 'Club', logo: 'original' },
     { key: 'B', name: 'Pulse', logo: 'original' },
     { key: 'C', name: 'Acid', logo: 'recolored lime' },
     { key: 'E', name: 'Infrared', logo: 'recolored red' },
@@ -22,9 +22,12 @@
     node.querySelectorAll('img[src^="venue-"]').forEach(img => { img.src = `../${img.getAttribute('src')}`; });
   }))).observe(document.documentElement, { childList: true, subtree: true });
 
-  const requested = (params.get('variant') || variants[0].key).toUpperCase();
+  // A · Bunker became the main design, so old ?variant=A links open the current design.
+  const requested = (params.get('variant') || variants[0].key).toUpperCase().replace(/^A$/, 'CURRENT');
   const current = variants.find(v => v.key.toUpperCase() === requested) || variants[0];
-  if (current.key !== 'current') document.documentElement.dataset.variant = current.key;
+  // The current design matches the main page (Bunker); I · Club is the former main design, plain guide.css.
+  if (current.key === 'current') document.documentElement.dataset.design = 'bunker';
+  else if (current.key !== 'I') document.documentElement.dataset.variant = current.key;
 
   const filters = `
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -68,7 +71,7 @@
     bar.setAttribute('aria-label', 'Prototype design variants');
     bar.innerHTML = `
       <button type="button" data-step="-1" aria-label="Previous variant">←</button>
-      <label class="proto-choice"><span>Explore designs · ${variants.indexOf(current) + 1}/${variants.length}</span><select aria-label="Choose a prototype">${variants.map(v => `<option value="${v.key}" ${v === current ? 'selected' : ''}>${v.key === 'current' ? 'Current design' : `${v.key} · ${v.name}`}</option>`).join('')}</select></label>
+      <label class="proto-choice"><span>Explore designs · ${variants.indexOf(current) + 1}/${variants.length}</span><select aria-label="Choose a prototype">${variants.map(v => `<option value="${v.key}" ${v === current ? 'selected' : ''}>${v.key === 'current' ? v.name : `${v.key} · ${v.name}`}</option>`).join('')}</select></label>
       <button type="button" data-step="1" aria-label="Next variant">→</button>`;
     bar.addEventListener('click', e => {
       const button = e.target.closest('button[data-step]');

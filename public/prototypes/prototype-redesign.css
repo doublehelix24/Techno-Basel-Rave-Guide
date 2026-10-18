@@ -30,81 +30,8 @@ footer { padding-bottom: 90px !important; }
 :root[data-variant] .rating meter::-webkit-meter-optimum-value { box-shadow: none; }
 :root[data-variant] .rating meter::-moz-meter-bar { box-shadow: none; }
 
-/* =====================================================================
-   A · BUNKER — black concrete club poster. Original logo, peach accent
-   pulled from the roundel. Full-bleed sections, no cards, hairlines.
-   ===================================================================== */
-:root[data-variant="A"] {
-  color-scheme: dark;
-  --ink: #ecebe7; --muted: #8f8d88; --teal: #ffad8a; --purple: #fff; --line: #262626;
-  --paper: #0d0d0d; --wash: #080808; --nav: #080808; --head: #080808; --stripe: #0d0d0d;
-  --facts: #121212; --facts-line: #262626; --meter-bg: #232323; --shadow: none;
-  --m1: #ffad8a; --m2: #e8d5c4; --m3: #c9a7ff; --m4: #9fd6c8; --m5: #f0f0f0; --m6: #ffd27a; --m7: #ff8d9b;
-  --display: 'Anton', Impact, sans-serif; --mono: 'JetBrains Mono', ui-monospace, monospace;
-}
-[data-variant="A"] body { font-family: Inter, system-ui, sans-serif; }
-[data-variant="A"] nav { background: rgba(8,8,8,.86); border-bottom: 1px solid var(--line); box-shadow: none; }
-[data-variant="A"] .brand { font-family: var(--mono); font-weight: 700; letter-spacing: .14em; }
-[data-variant="A"] .brand em { color: var(--teal); }
-[data-variant="A"] nav .nav-links a { font-family: var(--mono); font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: #bdbbb6; }
-[data-variant="A"] nav .nav-links a:hover { color: var(--teal); }
-[data-variant="A"] .icon-button,[data-variant="A"] .version-button { border-radius: 0; font-family: var(--mono); }
-[data-variant="A"] main { max-width: none; padding: 0; }
-[data-variant="A"] section { max-width: none; margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: var(--paper); padding: 72px max(24px, calc((100vw - 1180px) / 2)); }
-[data-variant="A"] section:nth-of-type(even) { background: var(--wash); }
-[data-variant="A"] section:target { outline: 0; box-shadow: inset 3px 0 0 var(--teal); }
-[data-variant="A"] #page1 { min-height: 92vh; padding-top: 48px; background: radial-gradient(ellipse 60% 45% at 78% 20%, rgba(255,173,138,.12), transparent 70%), #080808; }
-[data-variant="A"] .club-lights::before { inset: -30% 10% 20% 40%; background: conic-gradient(from 170deg at 60% 0%, transparent 0deg, rgba(255,255,255,.07) 8deg, transparent 18deg, rgba(255,255,255,.05) 30deg, transparent 40deg); filter: blur(10px); }
-[data-variant="A"] .club-lights::after { display: none; }
-[data-variant="A"] .hero-brand { font-family: var(--mono); color: var(--muted); }
-[data-variant="A"] .hero-brand span { border: 0; padding-left: 0; }
-[data-variant="A"] .hero-brand img { display: none; }
-[data-variant="A"] .last-updated { border-radius: 0; background: transparent; box-shadow: none; font-family: var(--mono); }
-[data-variant="A"] .cover { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; font-size: clamp(4rem, 15vw, 13rem); line-height: .9; margin: 30px 0 18px; }
-[data-variant="A"] .cycle-item { padding-top: .05em; line-height: 1.12; }
-[data-variant="A"] .cycle-item small { font-family: var(--mono); border-radius: 0; color: var(--teal); border-color: var(--teal); }
-[data-variant="A"] .after-dark { color: transparent; -webkit-text-stroke: 2px var(--ink); }
-[data-variant="A"] .cover-dot { color: var(--teal); -webkit-text-stroke: 0; }
-[data-variant="A"] .sub { color: var(--ink); font-family: var(--mono); font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; }
-[data-variant="A"] .hero-intro { color: var(--muted); }
-[data-variant="A"] .kicker { font-family: var(--mono); color: var(--teal); font-weight: 500; letter-spacing: .16em; }
-[data-variant="A"] h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: 0; font-size: clamp(2.6rem, 6vw, 5rem); line-height: .95; }
-[data-variant="A"] h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .01em; font-size: 1.8rem; }
-[data-variant="A"] h4 { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; color: var(--teal); }
-[data-variant="A"] .character h4 { color: var(--ink); }
-[data-variant="A"] .quick-links { gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-[data-variant="A"] .quick-links a { border-radius: 0; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; box-shadow: none; font-family: var(--mono); font-size: .72rem; font-weight: 500; text-transform: uppercase; padding: 12px 16px; }
-[data-variant="A"] .quick-links a:hover { background: var(--teal); color: #000; transform: none; }
-[data-variant="A"] .table-wrap { border-radius: 0; border: 0; border-top: 1px solid var(--ink); background: transparent; }
-[data-variant="A"] th { background: transparent; color: var(--muted); font-family: var(--mono); font-weight: 500; text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; border-bottom: 1px solid var(--line); }
-[data-variant="A"] .data-table tr:nth-child(odd) td { background: transparent; }
-[data-variant="A"] .overview-table tr:not(:first-child):hover td { background: #141414; }
-[data-variant="A"] .overview-table td:first-child,[data-variant="A"] .overview-table .date-link { font-family: var(--mono); font-weight: 500; }
-[data-variant="A"] .overview-table .event-link { text-transform: uppercase; letter-spacing: .02em; }
-[data-variant="A"] .facts { background: transparent; }
-[data-variant="A"] .facts td:first-child { font-family: var(--mono); font-weight: 500; }
-[data-variant="A"] .fit-button,[data-variant="A"] .calendar-link { border-radius: 0; font-family: var(--mono); font-size: .75rem; background: transparent; }
-[data-variant="A"] .fit-panel,[data-variant="A"] .venue-preview-panel,[data-variant="A"] .ticket-options-panel,[data-variant="A"] .artist-panel,[data-variant="A"] .venue-gallery-card { border-radius: 0; background: #111; }
-[data-variant="A"] .rating meter { border-radius: 0; height: 6px; }
-[data-variant="A"] .rating meter::-webkit-meter-bar { border-radius: 0; height: 6px; }
-[data-variant="A"] .rating meter::-webkit-meter-optimum-value { border-radius: 0; }
-[data-variant="A"] .rating meter::-moz-meter-bar { border-radius: 0; }
-[data-variant="A"] dialog { border-radius: 0; background: #0d0d0d; }
-/* Keep the latest overview tools and event pop-up in Bunker's poster style. */
-[data-variant="A"] :is(.filter-toggle,.event-filters,.filter-grid select,.filter-grid input,.filter-count,.genre-chips button,.filter-empty,.view-switch,.view-switch button,.event-calendar,.calendar-nav,.calendar-grid tbody td,.calendar-event,.event-dialog-step,.event-dialog-close),
-[data-variant="A"] dialog.event-dialog { border-radius: 0; }
-[data-variant="A"] :is(.filter-toggle,.filter-grid label,.filter-genres legend,.view-switch button,.calendar-title,.calendar-nav,.calendar-day,.event-dialog-step,.event-dialog-position) { font-family: var(--mono); }
-[data-variant="A"] .view-switch button { min-height: 44px; }
-[data-variant="A"] .event-dialog .event-dialog-body > section { padding: 32px; background: var(--paper); }
-@media (max-width: 680px) {
-  [data-variant="A"] section { padding: 44px 18px; }
-  [data-variant="A"] .cover { font-size: clamp(3rem, 16vw, 5.4rem); }
-  [data-variant="A"] .tagline { font-size: .75rem; letter-spacing: .04em; }
-  [data-variant="A"] h2 { overflow-wrap: anywhere; }
-  [data-variant="A"] .event-dialog .event-dialog-body > section { padding: 26px 18px; }
-  [data-variant="A"] .overview-table tr:not(:first-child) { border-radius: 0; background: #0d0d0d; box-shadow: none; }
-  [data-variant="A"] .quick-links { border-left: 0; }
-}
+/* A · BUNKER was promoted to the main design and now lives in ../bunker.css (html[data-design="bunker"]).
+   ?variant=A opens the explorer's current design, which is Bunker. */
 
 /* =====================================================================
    C · ACID — black and acid lime, brutalist blocks with hard shadows.
