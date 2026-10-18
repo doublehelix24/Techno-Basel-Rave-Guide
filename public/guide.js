@@ -275,6 +275,8 @@
     });
     document.addEventListener('keydown', event => {
       if (event.key !== 'Escape') return;
+      // Close only the artist menu, not an event dialog around it.
+      if (document.querySelector('.artist-wrap.is-open')) event.preventDefault();
       document.querySelectorAll('.artist-wrap.is-open').forEach(wrap => {
         if (wrap.contains(document.activeElement)) wrap.querySelector('button').focus();
         closeArtist(wrap);
@@ -522,6 +524,97 @@
     render();
   }
 
+  // Opens an event's detail section in a modal. The section itself moves into the dialog so its
+  // controls keep working, and returns to its place in the page when the dialog closes.
+  function setupEventDialog(items, matches) {
+    if (!items.length || !window.HTMLDialogElement) return;
+    const byId = new Map(items.map(item => [item.id, item]));
+    const dialog = document.createElement('dialog');
+    dialog.className = 'event-dialog';
+    dialog.innerHTML = `
+      <div class="event-dialog-bar">
+        <button type="button" class="event-dialog-step" data-step="-1"><span aria-hidden="true">‹</span> Previous</button>
+        <span class="event-dialog-position" aria-hidden="true"></span>
+        <button type="button" class="event-dialog-step" data-step="1">Next <span aria-hidden="true">›</span></button>
+        <button type="button" class="event-dialog-close" aria-label="Close event details">×</button>
+      </div>
+      <div class="event-dialog-body"></div>`;
+    document.body.append(dialog);
+    const body = dialog.querySelector('.event-dialog-body');
+    let current = null;
+    let marker = null;
+    const sequence = () => {
+      const visible = items.filter(matches);
+      return visible.includes(current) ? visible : items;
+    };
+    const restore = () => {
+      if (marker && current) marker.replaceWith(current.section);
+      marker = null;
+    };
+    const show = item => {
+      restore();
+      current = item;
+      marker = document.createElement('span');
+      marker.hidden = true;
+      item.section.before(marker);
+      // A hidden leading element keeps the section from matching the hero's section:first-child styles.
+      const spacer = document.createElement('span');
+      spacer.hidden = true;
+      body.replaceChildren(spacer, item.section);
+      const heading = item.section.querySelector('h2');
+      if (heading) {
+        heading.id ||= `${item.id}-title`;
+        dialog.setAttribute('aria-labelledby', heading.id);
+      }
+      const list = sequence();
+      const index = list.indexOf(item);
+      dialog.querySelector('.event-dialog-position').textContent = `${index + 1} / ${list.length}`;
+      [-1, 1].forEach(step => {
+        const button = dialog.querySelector(`[data-step="${step}"]`);
+        const target = list[index + step];
+        button.disabled = !target;
+        button.title = target ? target.title : '';
+      });
+      body.scrollTop = 0;
+      if (!dialog.open) {
+        dialog.showModal();
+        document.documentElement.classList.add('has-event-dialog');
+      }
+      dialog.querySelector('.event-dialog-close').focus();
+    };
+    dialog.addEventListener('close', () => {
+      restore();
+      current = null;
+      document.documentElement.classList.remove('has-event-dialog');
+    });
+    dialog.querySelector('.event-dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => {
+      if (event.target === dialog) dialog.close();
+      const step = event.target.closest('.event-dialog-step');
+      if (step) {
+        const list = sequence();
+        const target = list[list.indexOf(current) + Number(step.dataset.step)];
+        if (target) show(target);
+      }
+    });
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link || event.defaultPrevented || event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (link.closest('nav')) return;
+      const id = link.getAttribute('href').slice(1);
+      const item = byId.get(id);
+      const inDialog = dialog.contains(link);
+      if (item && !item.section.contains(link)) {
+        event.preventDefault();
+        show(item);
+      } else if (inDialog) {
+        // Other in-page links close the dialog first; "Back to overview" simply returns to the page.
+        if (link.closest('.section-top')) event.preventDefault();
+        dialog.close();
+      }
+    });
+  }
+
   const escapeIcs = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -707,7 +800,9 @@
   setupVenues();
   setupArtists();
   const items = guideEvents();
-  setupCalendar(items, setupFilters(items));
+  const matches = setupFilters(items);
+  setupCalendar(items, matches);
+  setupEventDialog(items, matches);
   setupTheme();
   setupDialog();
 })();
