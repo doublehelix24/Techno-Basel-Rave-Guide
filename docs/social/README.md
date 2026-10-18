@@ -1,4 +1,4 @@
-The main guide's social preview uses `public/share-card-v2.png` (1200 × 630).
+The main guide's social preview uses `public/share-card-v3.png` (1200 × 630).
 Its editable HTML/CSS source is `share-card.html`; it deliberately keeps the
 logo, title and tagline inside the central square for narrower preview crops.
 
@@ -8,7 +8,7 @@ URL for `docs/social/share-card.html`:
 ```sh
 chromium --headless --no-sandbox --disable-gpu --hide-scrollbars \
   --force-device-scale-factor=1 --window-size=1200,630 \
-  --virtual-time-budget=10000 --screenshot=public/share-card-v2.png \
+  --virtual-time-budget=10000 --screenshot=public/share-card-v3.png \
   "file://$PWD/docs/social/share-card.html"
 ```
 
