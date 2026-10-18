@@ -230,7 +230,9 @@ td { border-color: var(--line); }
 .calendar-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; border-radius: 999px; background: var(--facts); border: 1px solid var(--line); color: var(--teal); font: inherit; font-size: .78rem; font-weight: 800; text-decoration: none; cursor: pointer; }
 .calendar-link::before { content: '▦'; font-size: 1rem; }
 .calendar-link:hover { border-color: var(--purple); }
-.event-actions { display: flex; gap: 9px; flex-wrap: wrap; margin: 14px 0 20px; }
+.event-header-actions { align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.event-actions { display: flex; gap: 9px; flex-wrap: wrap; margin: 0 0 0 auto; }
+.event-actions .calendar-link { min-height: 44px; }
 .event-actions a { min-height: 39px; }
 .section-top a:hover { color: var(--teal); }
 dialog { width: min(540px,calc(100% - 30px)); max-height: min(80vh,760px); overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line); border-radius: 20px; padding: 26px; background: var(--paper); color: var(--ink); box-shadow: 0 30px 90px rgba(0,0,0,.35); }

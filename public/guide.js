@@ -244,10 +244,12 @@
       const calendar = document.createElement('button');
       calendar.type = 'button';
       calendar.className = 'calendar-link';
-      calendar.textContent = 'Download calendar invite';
+      calendar.textContent = 'Save in calendar';
       calendar.addEventListener('click', () => downloadCalendar(event, section));
       actions.append(calendar);
-      section.querySelector('.sub')?.after(actions);
+      const sectionTop = section.querySelector('.section-top');
+      sectionTop.classList.add('event-header-actions');
+      sectionTop.append(actions);
     });
     document.addEventListener('click', e => {
       if (!e.target.closest('.fit-wrap')) {
