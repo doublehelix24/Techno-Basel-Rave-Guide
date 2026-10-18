@@ -164,6 +164,9 @@ td { border-color: var(--line); }
 [data-trait="Festival feel"] { --genre-color: var(--c-festival); }
 .rating > span::before,.genre-label::before,.fit-panel-grid > span > span::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: var(--meter-fill,var(--teal)); vertical-align: 1px; }
 .genre-label { white-space: nowrap; }
+/* In running text such as the group fit legend, the genre word itself carries the colour. */
+p .genre-label { color: var(--genre-color); font-weight: 750; }
+p .genre-label::before { content: none; }
 .genre-label::before,.fit-panel-grid > span > span::before { background: var(--genre-color,var(--teal)); }
 .character h4 { color: var(--purple); }
 .overview-table td { vertical-align: middle; }
