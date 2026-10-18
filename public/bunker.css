@@ -101,6 +101,14 @@
 [data-design="bunker"] dialog.event-dialog { border-radius: 0; }
 [data-design="bunker"] :is(.filter-toggle,.filter-grid label,.filter-genres legend,.view-switch button,.calendar-title,.calendar-nav,.calendar-day,.event-dialog-step,.event-dialog-position) { font-family: var(--mono); }
 [data-design="bunker"] .view-switch button { min-height: 44px; }
+[data-design="bunker"] .event-filters {
+  margin-bottom: 30px;
+  border-color: var(--teal);
+  border-left-width: 4px;
+  background: var(--facts);
+  background: color-mix(in srgb, var(--teal) 8%, var(--paper));
+}
+[data-design="bunker"] .filter-footer { margin-top: 12px; border-top: 1px solid var(--line); }
 [data-design="bunker"] .event-dialog .event-dialog-body > section { padding: 32px; background: var(--paper); }
 @media (max-width: 680px) {
   [data-design="bunker"] section { padding: 44px 18px; }

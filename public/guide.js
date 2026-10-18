@@ -345,9 +345,17 @@
       <fieldset class="filter-genres"><legend>Genre <small>· taste fit ${STRONG_FIT}+/10</small></legend><div class="genre-chips">${GENRES.map(genre => `<button type="button" aria-pressed="false" data-genre="${genre}">${genre}</button>`).join('')}</div></fieldset>
       <div class="filter-footer"><p class="filter-status" role="status"></p><button type="button" class="filter-reset" hidden>Reset filters</button></div>`;
     overview.before(toolbar, panel);
+    let settleFrame;
     toggle.addEventListener('click', () => {
+      // Keep Chromium's scroll anchor from moving when the panel changes height.
+      const root = document.documentElement;
+      root.classList.add('is-toggling-filters');
       panel.hidden = !panel.hidden;
       toggle.setAttribute('aria-expanded', String(!panel.hidden));
+      cancelAnimationFrame(settleFrame);
+      settleFrame = requestAnimationFrame(() => {
+        settleFrame = requestAnimationFrame(() => root.classList.remove('is-toggling-filters'));
+      });
     });
     const empty = document.createElement('p');
     empty.className = 'filter-empty';

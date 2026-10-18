@@ -241,6 +241,7 @@ p .genre-label::before { content: none; }
 .filter-count[hidden] { display: none; }
 .event-filters { margin: 12px 0 0; padding: 16px 0 0; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
 .event-filters[hidden] { display: none; }
+html.is-toggling-filters { overflow-anchor: none; }
 .filter-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; padding: 0 16px; }
 .filter-grid label,.filter-genres legend { display: grid; gap: 5px; font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .filter-genres legend small { font-weight: 600; letter-spacing: 0; text-transform: none; }
