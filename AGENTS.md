@@ -17,4 +17,4 @@ This repository is a static event guide hosted on Netlify. Netlify's publish dir
 
 - Netlify publishes `public/` directly from this repository. Put every site asset needed at runtime inside that folder; repository-root files are not served.
 - Preview `public/index.html` at desktop and phone widths after visual changes. Check the animated title/tagline, Zürich's umlaut, the overview links and fit controls, dark mode, and a sample Zürich-time calendar invite when related code changes.
-- Commit completed changes. Publishing to the connected Netlify site requires pushing the committed branch to the Git remote; confirm deployment status when that is in scope.
+- Commit completed changes. Never push automatically; push to the Git remote only when the user explicitly asks. Publishing to the connected Netlify site requires pushing the committed branch; confirm deployment status when publishing is explicitly requested.
