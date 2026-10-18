@@ -369,7 +369,7 @@
       panel.querySelector('.filter-status').textContent = `Showing ${shown} of ${items.length} events`;
       panel.querySelector('.filter-count').textContent = active ? `${active} active` : '';
       document.querySelectorAll('.filter-reset').forEach(button => { button.hidden = !active; });
-      overview.hidden = !shown;
+      overview.classList.toggle('is-empty', !shown);
       empty.hidden = Boolean(shown);
       filterListeners.forEach(listener => listener());
     };
@@ -388,6 +388,138 @@
     }));
     apply();
     return matches;
+  }
+
+  const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const dayLabel = iso => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })
+    .format(new Date(`${iso}T00:00:00Z`));
+  const fullDayLabel = iso => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' })
+    .format(new Date(`${iso}T00:00:00Z`));
+  const viewIcons = {
+    list: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'
+  };
+
+  function setupCalendar(items, matches) {
+    const overview = document.querySelector('.overview-wrap');
+    if (!overview || !items.length) return;
+    const section = overview.closest('section');
+    const months = [];
+    for (let year = +items[0].month.slice(0, 4), month = +items[0].month.slice(4) - 1; ; month++) {
+      const date = new Date(Date.UTC(year, month, 1));
+      const key = `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+      months.push(key);
+      if (key === items[items.length - 1].month) break;
+    }
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    let current = (items.find(item => item.iso >= today) || items[0]).month;
+
+    const switcher = document.createElement('div');
+    switcher.className = 'view-switch';
+    switcher.setAttribute('role', 'group');
+    switcher.setAttribute('aria-label', 'Overview layout');
+    switcher.innerHTML = ['list', 'calendar'].map(view => `<button type="button" data-view="${view}" aria-pressed="false">${viewIcons[view]}${view === 'list' ? 'List' : 'Calendar'}</button>`).join('');
+    const calendar = document.createElement('div');
+    calendar.className = 'event-calendar';
+    calendar.innerHTML = `
+      <div class="calendar-head">
+        <button type="button" class="calendar-nav" data-step="-1" aria-label="Previous month">‹</button>
+        <h2 class="calendar-title" aria-live="polite"></h2>
+        <button type="button" class="calendar-nav" data-step="1" aria-label="Next month">›</button>
+      </div>
+      <table class="calendar-grid">
+        <thead><tr>${WEEKDAYS.map(day => `<th scope="col"><abbr title="${day}">${day.slice(0, 3)}</abbr></th>`).join('')}</tr></thead>
+        <tbody></tbody>
+      </table>
+      <ol class="calendar-agenda" aria-label="Events this month"></ol>`;
+    const filters = document.querySelector('.event-filters');
+    (filters || overview).after(switcher);
+    overview.after(calendar);
+
+    const eventLink = (item, className) => {
+      const link = document.createElement('a');
+      link.href = `#${item.id}`;
+      link.className = className;
+      return link;
+    };
+    const render = () => {
+      const year = +current.slice(0, 4);
+      const month = +current.slice(4) - 1;
+      const visible = items.filter(item => item.month === current && matches(item));
+      calendar.querySelector('.calendar-title').textContent = monthName(current);
+      calendar.querySelector('[data-step="-1"]').disabled = current === months[0];
+      calendar.querySelector('[data-step="1"]').disabled = current === months[months.length - 1];
+      const tbody = calendar.querySelector('tbody');
+      tbody.replaceChildren();
+      const offset = (new Date(Date.UTC(year, month, 1)).getUTCDay() + 6) % 7;
+      const days = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+      let row;
+      for (let cell = 0; cell < Math.ceil((offset + days) / 7) * 7; cell++) {
+        if (cell % 7 === 0) row = tbody.insertRow();
+        const td = row.insertCell();
+        const day = cell - offset + 1;
+        if (day < 1 || day > days) { td.className = 'is-outside'; continue; }
+        const iso = `${current.slice(0, 4)}-${current.slice(4)}-${String(day).padStart(2, '0')}`;
+        const number = document.createElement('span');
+        number.className = 'calendar-day';
+        number.textContent = day;
+        td.append(number);
+        if (iso === today) {
+          td.classList.add('is-today');
+          number.setAttribute('aria-label', `${day}, today`);
+        }
+        visible.filter(item => item.iso === iso).forEach(item => {
+          const link = eventLink(item, 'calendar-event');
+          link.innerHTML = '<strong></strong><span></span>';
+          link.querySelector('strong').textContent = item.title;
+          link.querySelector('span').textContent = item.venue;
+          link.setAttribute('aria-label', `${fullDayLabel(iso)}: ${item.title} at ${item.venue}`);
+          td.classList.add('has-event');
+          td.append(link);
+        });
+      }
+      const agenda = calendar.querySelector('.calendar-agenda');
+      agenda.replaceChildren(...visible.map(item => {
+        const entry = document.createElement('li');
+        const link = eventLink(item, 'agenda-event');
+        link.innerHTML = '<time></time><strong></strong><span></span>';
+        link.querySelector('time').dateTime = item.iso;
+        link.querySelector('time').textContent = dayLabel(item.iso);
+        link.querySelector('strong').textContent = item.title;
+        link.querySelector('span').textContent = `${item.venue} · CHF ${item.price.toFixed(2)}`;
+        entry.append(link);
+        return entry;
+      }));
+      if (!visible.length) {
+        const entry = document.createElement('li');
+        entry.className = 'agenda-empty';
+        entry.textContent = 'No matching events this month.';
+        agenda.append(entry);
+      }
+    };
+    const setView = view => {
+      section.dataset.view = view;
+      switcher.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+      try { localStorage.setItem('tcb-overview-view', view); } catch (_) { /* private browsing */ }
+    };
+    switcher.addEventListener('click', event => {
+      const button = event.target.closest('[data-view]');
+      if (button) setView(button.dataset.view);
+    });
+    calendar.querySelectorAll('.calendar-nav').forEach(button => button.addEventListener('click', () => {
+      current = months[months.indexOf(current) + Number(button.dataset.step)] || current;
+      render();
+    }));
+    filterListeners.push(() => {
+      const month = document.querySelector('[data-filter="month"]')?.value;
+      if (month && months.includes(month)) current = month;
+      render();
+    });
+    let saved;
+    try { saved = localStorage.getItem('tcb-overview-view'); } catch (_) { /* private browsing */ }
+    setView(saved === 'calendar' ? 'calendar' : 'list');
+    render();
   }
 
   const escapeIcs = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
@@ -575,7 +707,7 @@
   setupVenues();
   setupArtists();
   const items = guideEvents();
-  setupFilters(items);
+  setupCalendar(items, setupFilters(items));
   setupTheme();
   setupDialog();
 })();
