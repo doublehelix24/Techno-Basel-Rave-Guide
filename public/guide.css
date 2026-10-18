@@ -145,6 +145,20 @@ td { border-color: var(--line); }
 .fit-panel-grid > span { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding: 4px 0; }
 .fit-panel-grid strong { color: var(--teal); }
 .fit-panel-link { display: inline-block; margin-top: 12px; font-size: .76rem; font-weight: 750; }
+.ticket-options { display: inline-block; position: relative; }
+.ticket-options summary { display: inline-flex; align-items: center; gap: 6px; list-style: none; cursor: pointer; color: var(--ink); font-weight: 750; }
+.ticket-options summary::-webkit-details-marker { display: none; }
+.ticket-options summary:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; border-radius: 4px; }
+.ticket-options-hint { color: var(--teal); font-size: .72rem; white-space: nowrap; }
+.ticket-options summary:hover .ticket-options-hint,.ticket-options[open] .ticket-options-hint { color: var(--purple); }
+.ticket-options-panel { position: absolute; z-index: 12; top: calc(100% + 8px); right: 0; width: min(300px,calc(100vw - 48px)); padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); box-shadow: 0 22px 60px rgba(21,11,30,.25); color: var(--ink); text-align: left; white-space: normal; font-size: .78rem; font-weight: 400; line-height: 1.5; }
+.ticket-options-panel > strong { display: block; margin-bottom: 4px; color: var(--teal); font-size: .95rem; }
+.ticket-options-panel p { margin: 0 0 10px; color: var(--muted); }
+.ticket-options-panel dl { margin: 0 0 12px; }
+.ticket-options-panel dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.ticket-options-panel dt { font-weight: 700; }
+.ticket-options-panel dd { margin: 0; white-space: nowrap; font-weight: 800; }
+.ticket-options-panel a { font-weight: 750; }
 .calendar-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; border-radius: 999px; background: var(--facts); border: 1px solid var(--line); color: var(--teal); font: inherit; font-size: .78rem; font-weight: 800; text-decoration: none; cursor: pointer; }
 .calendar-link::before { content: '▦'; font-size: 1rem; }
 .calendar-link:hover { border-color: var(--purple); }
@@ -203,6 +217,7 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   .overview-table td:nth-child(4) { grid-column: 1 / -1; grid-row: 4; padding-top: 8px; }
   .overview-table td:last-child { grid-column: 2; grid-row: 1; font-size: .75rem; color: var(--muted); text-align: right; }
   .overview-table td:last-child::before { content: 'CHF (from) '; }
+  .ticket-options-panel { font-size: .82rem; }
   .fit-wrap { display: block; }
   .fit-button { width: 100%; justify-content: space-between; min-height: 42px; }
   .fit-panel { position: static; box-shadow: none; width: 100%; margin-top: 8px; }
