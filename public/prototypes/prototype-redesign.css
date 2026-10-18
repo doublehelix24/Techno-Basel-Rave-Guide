@@ -20,6 +20,11 @@ footer { padding-bottom: 90px !important; }
 :root[data-variant] .taste .rating:nth-child(5),:root[data-variant] .character .rating:nth-child(5) { --meter-fill: var(--m5); }
 :root[data-variant] .character .rating:nth-child(6) { --meter-fill: var(--m6); }
 :root[data-variant] .character .rating:nth-child(7) { --meter-fill: var(--m7); }
+:root[data-variant] [data-genre="Techno"] { --genre-color: var(--m1); }
+:root[data-variant] [data-genre="House"] { --genre-color: var(--m2); }
+:root[data-variant] [data-genre="Melodic"] { --genre-color: var(--m3); }
+:root[data-variant] [data-genre="Vocal"] { --genre-color: var(--m4); }
+:root[data-variant] [data-genre="Trance"] { --genre-color: var(--m5); }
 :root[data-variant] .rating meter { box-shadow: none; border-color: transparent; }
 :root[data-variant] .rating meter::-webkit-meter-bar { box-shadow: none; border-color: transparent; }
 :root[data-variant] .rating meter::-webkit-meter-optimum-value { box-shadow: none; }
@@ -48,12 +53,12 @@ footer { padding-bottom: 90px !important; }
 [data-variant="A"] section { max-width: none; margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: var(--paper); padding: 72px max(24px, calc((100vw - 1180px) / 2)); }
 [data-variant="A"] section:nth-of-type(even) { background: var(--wash); }
 [data-variant="A"] section:target { outline: 0; box-shadow: inset 3px 0 0 var(--teal); }
-[data-variant="A"] section:first-child { min-height: 92vh; padding-top: 48px; background: radial-gradient(ellipse 60% 45% at 78% 20%, rgba(255,173,138,.12), transparent 70%), #080808; }
+[data-variant="A"] #page1 { min-height: 92vh; padding-top: 48px; background: radial-gradient(ellipse 60% 45% at 78% 20%, rgba(255,173,138,.12), transparent 70%), #080808; }
 [data-variant="A"] .club-lights::before { inset: -30% 10% 20% 40%; background: conic-gradient(from 170deg at 60% 0%, transparent 0deg, rgba(255,255,255,.07) 8deg, transparent 18deg, rgba(255,255,255,.05) 30deg, transparent 40deg); filter: blur(10px); }
 [data-variant="A"] .club-lights::after { display: none; }
 [data-variant="A"] .hero-brand { font-family: var(--mono); color: var(--muted); }
-[data-variant="A"] .hero-brand span { border-color: var(--line); }
-[data-variant="A"] .hero-brand img { width: 150px; height: 118px; filter: drop-shadow(0 0 40px rgba(255,173,138,.35)); }
+[data-variant="A"] .hero-brand span { border: 0; padding-left: 0; }
+[data-variant="A"] .hero-brand img { display: none; }
 [data-variant="A"] .last-updated { border-radius: 0; background: transparent; box-shadow: none; font-family: var(--mono); }
 [data-variant="A"] .cover { font-family: var(--display); font-weight: 400; letter-spacing: -.01em; font-size: clamp(4rem, 15vw, 13rem); line-height: .9; margin: 30px 0 18px; }
 [data-variant="A"] .cycle-item { padding-top: .05em; line-height: 1.12; }
@@ -85,10 +90,18 @@ footer { padding-bottom: 90px !important; }
 [data-variant="A"] .rating meter::-webkit-meter-optimum-value { border-radius: 0; }
 [data-variant="A"] .rating meter::-moz-meter-bar { border-radius: 0; }
 [data-variant="A"] dialog { border-radius: 0; background: #0d0d0d; }
+/* Keep the latest overview tools and event pop-up in Bunker's poster style. */
+[data-variant="A"] :is(.filter-toggle,.event-filters,.filter-grid select,.filter-grid input,.filter-count,.genre-chips button,.filter-empty,.view-switch,.view-switch button,.event-calendar,.calendar-nav,.calendar-grid tbody td,.calendar-event,.event-dialog-step,.event-dialog-close),
+[data-variant="A"] dialog.event-dialog { border-radius: 0; }
+[data-variant="A"] :is(.filter-toggle,.filter-grid label,.filter-genres legend,.view-switch button,.calendar-title,.calendar-nav,.calendar-day,.event-dialog-step,.event-dialog-position) { font-family: var(--mono); }
+[data-variant="A"] .view-switch button { min-height: 44px; }
+[data-variant="A"] .event-dialog .event-dialog-body > section { padding: 32px; background: var(--paper); }
 @media (max-width: 680px) {
   [data-variant="A"] section { padding: 44px 18px; }
-  [data-variant="A"] .cover { font-size: clamp(3.4rem, 19vw, 5.4rem); }
-  [data-variant="A"] .hero-brand img { width: 76px; height: 60px; }
+  [data-variant="A"] .cover { font-size: clamp(3rem, 16vw, 5.4rem); }
+  [data-variant="A"] .tagline { font-size: .75rem; letter-spacing: .04em; }
+  [data-variant="A"] h2 { overflow-wrap: anywhere; }
+  [data-variant="A"] .event-dialog .event-dialog-body > section { padding: 26px 18px; }
   [data-variant="A"] .overview-table tr:not(:first-child) { border-radius: 0; background: #0d0d0d; box-shadow: none; }
   [data-variant="A"] .quick-links { border-left: 0; }
 }

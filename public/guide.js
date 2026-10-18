@@ -317,6 +317,7 @@
   }
 
   const filterListeners = [];
+  const filterIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5L3 5z"/></svg>';
 
   function setupFilters(items) {
     const overview = document.querySelector('.overview-wrap');
@@ -325,20 +326,29 @@
     const prices = [50, 80, 100, 120];
     const first = items[0].iso;
     const last = items[items.length - 1].iso;
-    const panel = document.createElement('details');
+    // The filter toggle shares a toolbar row with the List / Calendar switch; the panel opens below it.
+    const toolbar = document.createElement('div');
+    toolbar.className = 'overview-toolbar';
+    toolbar.innerHTML = `<button type="button" class="filter-toggle" aria-expanded="false" aria-controls="event-filters">${filterIcon}Filters<span class="filter-count" hidden></span></button>`;
+    const toggle = toolbar.querySelector('.filter-toggle');
+    const panel = document.createElement('div');
     panel.className = 'event-filters';
-    panel.open = matchMedia('(min-width: 681px)').matches;
+    panel.id = 'event-filters';
+    panel.hidden = true;
     panel.innerHTML = `
-      <summary><span>Filter events</span><span class="filter-count" aria-hidden="true"></span></summary>
       <div class="filter-grid">
         <label><span>Month</span><select data-filter="month"><option value="">Any month</option>${months.map(month => `<option value="${month}">${monthName(month)}</option>`).join('')}</select></label>
         <label><span>From</span><input type="date" data-filter="from" min="${first}" max="${last}"></label>
         <label><span>Until</span><input type="date" data-filter="until" min="${first}" max="${last}"></label>
-        <label><span>Price (from)</span><select data-filter="price"><option value="">Any price</option>${prices.map(price => `<option value="${price}">Up to CHF ${price}</option>`).join('')}</select></label>
+        <label><span>Price limit</span><select data-filter="price"><option value="">Any price</option>${prices.map(price => `<option value="${price}">Up to CHF ${price}</option>`).join('')}</select></label>
       </div>
       <fieldset class="filter-genres"><legend>Genre <small>· taste fit ${STRONG_FIT}+/10</small></legend><div class="genre-chips">${GENRES.map(genre => `<button type="button" aria-pressed="false" data-genre="${genre}">${genre}</button>`).join('')}</div></fieldset>
       <div class="filter-footer"><p class="filter-status" role="status"></p><button type="button" class="filter-reset" hidden>Reset filters</button></div>`;
-    overview.before(panel);
+    overview.before(toolbar, panel);
+    toggle.addEventListener('click', () => {
+      panel.hidden = !panel.hidden;
+      toggle.setAttribute('aria-expanded', String(!panel.hidden));
+    });
     const empty = document.createElement('p');
     empty.className = 'filter-empty';
     empty.hidden = true;
@@ -369,7 +379,9 @@
       });
       const active = [...panel.querySelectorAll('[data-filter]')].filter(input => input.value).length + selectedGenres().length;
       panel.querySelector('.filter-status').textContent = `Showing ${shown} of ${items.length} events`;
-      panel.querySelector('.filter-count').textContent = active ? `${active} active` : '';
+      const count = toggle.querySelector('.filter-count');
+      count.hidden = !active;
+      count.innerHTML = `${active}<span class="sr-only"> active</span>`;
       document.querySelectorAll('.filter-reset').forEach(button => { button.hidden = !active; });
       overview.classList.toggle('is-empty', !shown);
       empty.hidden = Boolean(shown);
@@ -386,7 +398,7 @@
       panel.querySelectorAll('[data-filter]').forEach(input => { input.value = ''; });
       panel.querySelectorAll('[data-genre]').forEach(genre => genre.setAttribute('aria-pressed', 'false'));
       apply();
-      panel.querySelector('summary').focus();
+      toggle.focus();
     }));
     apply();
     return matches;
@@ -435,8 +447,9 @@
         <tbody></tbody>
       </table>
       <ol class="calendar-agenda" aria-label="Events this month"></ol>`;
-    const filters = document.querySelector('.event-filters');
-    (filters || overview).after(switcher);
+    const toolbar = document.querySelector('.overview-toolbar');
+    if (toolbar) toolbar.prepend(switcher);
+    else overview.before(switcher);
     overview.after(calendar);
 
     const eventLink = (item, className) => {
