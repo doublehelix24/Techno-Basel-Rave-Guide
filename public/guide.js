@@ -14,6 +14,111 @@
     { id: 'page17', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true }
   ];
 
+  const venues = {
+    'MÄX': { id: 'venue-maex', image: 'venue-maex.jpg', alt: 'Crowd and stage lights inside MÄX Zürich', description: 'Industrial club energy', source: 'https://maexzuerich.com/', credit: 'MÄX Zürich' },
+    'Warehouse ZRH': { id: 'venue-warehouse', image: 'venue-warehouse.webp', alt: 'Warehouse ZRH illuminated promotional sign', description: 'Temporary superclub · opening November 2026', source: 'https://www.warehousezrh.com/', credit: 'Warehouse ZRH', creditLabel: 'Image', note: 'Official promotional image; the venue has not opened yet.' },
+    'Kaufleuten': { id: 'venue-kaufleuten', image: 'venue-kaufleuten.jpg', alt: 'Red-and-gold Kaufleuten Klubsaal with gallery', description: 'The classic red-and-gold Klubsaal', source: 'https://kaufleuten.ch/anlass-und-bankett/klubsaal/', credit: 'Kaufleuten Zürich' },
+    'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation' }
+  };
+
+  function venueFigure(name, data) {
+    const figure = document.createElement('figure');
+    figure.className = 'venue-figure';
+    const image = document.createElement('img');
+    image.src = data.image;
+    image.alt = data.alt;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    const caption = document.createElement('figcaption');
+    const heading = document.createElement('strong');
+    heading.textContent = name;
+    const description = document.createElement('span');
+    description.textContent = data.description;
+    const credit = document.createElement('a');
+    credit.href = data.source;
+    credit.textContent = `${data.creditLabel || 'Photo'}: ${data.credit} ↗`;
+    caption.append(heading, description);
+    if (data.note) {
+      const note = document.createElement('small');
+      note.textContent = data.note;
+      caption.append(note);
+    }
+    caption.append(credit);
+    figure.append(image, caption);
+    return figure;
+  }
+
+  function setupVenues() {
+    const gallery = document.getElementById('venue-gallery');
+    Object.entries(venues).forEach(([name, data]) => {
+      const details = document.createElement('details');
+      details.className = 'venue-gallery-card';
+      details.id = data.id;
+      const summary = document.createElement('summary');
+      summary.innerHTML = `<span><strong>${name}</strong><small>${data.description}</small></span><span class="venue-gallery-prompt">View photo ↗</span>`;
+      details.append(summary, venueFigure(name, data));
+      gallery.append(details);
+    });
+
+    document.querySelectorAll('.overview-table tr').forEach((row, index) => {
+      if (!index) return;
+      const nameCell = row.cells[1];
+      const nameNode = nameCell.lastChild;
+      const name = nameNode.textContent.trim();
+      const data = venues[name];
+      if (!data) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'venue-preview';
+      const link = document.createElement('a');
+      link.href = `#${data.id}`;
+      link.className = 'venue-link';
+      link.textContent = name;
+      link.addEventListener('click', () => { document.getElementById(data.id).open = true; });
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'venue-preview-button';
+      button.setAttribute('aria-label', `Preview ${name} photo`);
+      button.setAttribute('aria-expanded', 'false');
+      button.textContent = 'Photo ⌄';
+      const panel = document.createElement('div');
+      panel.className = 'venue-preview-panel';
+      panel.append(venueFigure(name, data));
+      wrap.append(link, button, panel);
+      nameNode.replaceWith(wrap);
+      button.addEventListener('click', () => {
+        const open = !wrap.classList.contains('is-open');
+        document.querySelectorAll('.venue-preview.is-open').forEach(other => {
+          other.classList.remove('is-open');
+          other.querySelector('button').setAttribute('aria-expanded', 'false');
+        });
+        wrap.classList.toggle('is-open', open);
+        wrap.classList.toggle('is-dismissed', !open);
+        button.setAttribute('aria-expanded', String(open));
+      });
+      wrap.addEventListener('mouseleave', () => wrap.classList.remove('is-dismissed'));
+      wrap.addEventListener('focusout', event => {
+        if (!wrap.contains(event.relatedTarget)) wrap.classList.remove('is-dismissed');
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (event.target.closest('.venue-preview')) return;
+      document.querySelectorAll('.venue-preview.is-open').forEach(wrap => {
+        wrap.classList.remove('is-open');
+        wrap.classList.add('is-dismissed');
+        wrap.querySelector('button').setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      document.querySelectorAll('.venue-preview.is-open').forEach(wrap => {
+        wrap.classList.remove('is-open');
+        wrap.classList.add('is-dismissed');
+        wrap.querySelector('button').setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   const escapeIcs = value => String(value).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -63,7 +168,7 @@
       const section = document.getElementById(event.id);
       if (!row || !section) return;
 
-      const [dateCell, nameCell, , fitCell] = row.cells;
+      const [dateCell, nameCell, , fitCell, priceCell] = row.cells;
       const date = dateCell.textContent.trim();
       const name = nameCell.querySelector('strong');
       dateCell.innerHTML = `<a class="date-link" href="#${event.id}">${date}</a>`;
@@ -72,6 +177,20 @@
       eventLink.className = 'event-link';
       eventLink.textContent = name.textContent;
       name.replaceChildren(eventLink);
+
+      const ticketRow = [...section.querySelectorAll('.facts tr')].find(tr => tr.cells[0]?.textContent.trim() === 'TICKETS');
+      const saleLink = ticketRow?.querySelector('a[href]:last-of-type');
+      if (saleLink) {
+        let priceLink = priceCell.querySelector('.price-link');
+        if (!priceLink) {
+          priceLink = document.createElement('a');
+          priceLink.className = 'price-link';
+          priceLink.textContent = priceCell.textContent.trim();
+          priceCell.replaceChildren(priceLink);
+        }
+        priceLink.href = saleLink.href;
+        priceLink.setAttribute('aria-label', `${name.textContent} tickets from CHF ${priceLink.textContent.trim()}`);
+      }
 
       const score = fitCell.textContent.trim();
       const ratings = [...section.querySelectorAll('.ratings .rating')].map(item => ({
@@ -179,6 +298,7 @@
   }
 
   setupEvents();
+  setupVenues();
   setupTheme();
   setupDialog();
 })();
