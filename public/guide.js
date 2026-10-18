@@ -678,7 +678,7 @@
   const longDate = iso => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
     .format(new Date(`${iso}T00:00:00Z`));
 
-  // The overview date links to the event and discloses its Zürich start and end times.
+  // The overview date links to the event and discloses its start and end times.
   function datePreview(event, date, section) {
     const wrap = document.createElement('div');
     wrap.className = 'date-preview';
@@ -715,14 +715,12 @@
       entry.append(dt, dd);
       list.append(entry);
     });
-    const note = document.createElement('small');
-    note.textContent = 'Zürich time';
     const calendar = document.createElement('button');
     calendar.type = 'button';
     calendar.className = 'calendar-link';
     calendar.textContent = 'Save in calendar';
     calendar.addEventListener('click', () => downloadCalendar(event, section));
-    panel.append(heading, list, note, calendar);
+    panel.append(heading, list, calendar);
     wrap.append(link, button, panel);
     button.addEventListener('click', () => {
       const open = !wrap.classList.contains('is-open');

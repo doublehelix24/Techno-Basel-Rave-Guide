@@ -223,11 +223,10 @@ td { border-color: var(--line); }
 .date-preview-panel { display: none; position: absolute; z-index: 15; top: calc(100% + 2px); left: 0; width: min(270px,calc(100vw - 48px)); padding: 14px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); box-shadow: 0 22px 60px rgba(21,11,30,.25); color: var(--ink); font-weight: 400; white-space: normal; }
 .date-preview:hover .date-preview-panel,.date-preview.is-open .date-preview-panel,.date-preview-panel:focus-within { display: block; }
 .date-preview-panel > strong { display: block; margin-bottom: 8px; font-size: .86rem; }
-.date-preview-panel dl { margin: 0 0 8px; }
+.date-preview-panel dl { margin: 0 0 12px; }
 .date-preview-panel dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: .82rem; }
 .date-preview-panel dt { color: var(--muted); font-weight: 700; }
 .date-preview-panel dd { margin: 0; font-weight: 800; text-align: right; }
-.date-preview-panel small { display: block; margin-bottom: 10px; color: var(--muted); font-size: .72rem; }
 .overview-table tr[hidden],.quick-links a[hidden] { display: none !important; }
 .overview-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 22px 0 0; }
 .filter-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--ink); cursor: pointer; font: inherit; font-size: .82rem; font-weight: 800; }
