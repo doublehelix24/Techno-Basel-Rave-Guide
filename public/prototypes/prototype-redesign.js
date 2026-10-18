@@ -11,7 +11,8 @@
     { key: 'D', name: 'Chrome', logo: 'recolored silver' },
     { key: 'E', name: 'Infrared', logo: 'recolored red' },
     { key: 'F', name: 'Night Map', logo: 'original' },
-    { key: 'G', name: 'Sunset Radio', logo: 'original' }
+    { key: 'G', name: 'Sunset Radio', logo: 'original' },
+    { key: 'H', name: 'Briefing', logo: 'original' }
   ];
 
   const params = new URLSearchParams(location.search);
