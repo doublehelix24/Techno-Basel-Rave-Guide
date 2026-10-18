@@ -88,9 +88,12 @@ section:first-child { position: relative; isolation: isolate; }
 .star-five { top: 7%; right: 37%; animation-delay: -3.9s; transform: scale(.5); }
 .star-six { top: 62%; right: 9%; animation-delay: -2.7s; transform: scale(.6); }
 @keyframes star-pulse { 0%,35% { opacity: .38; } 100% { opacity: .9; } }
+.hero-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .hero-brand { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .75rem; letter-spacing: .13em; font-weight: 800; text-transform: uppercase; }
 .hero-brand img { width: 78px; height: 62px; object-fit: contain; border-radius: 50%; }
 .hero-brand span { border-left: 1px solid var(--line); padding-left: 14px; }
+.last-updated { display: flex; flex-direction: column; flex: none; gap: 1px; margin: 7px 0 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); box-shadow: 0 5px 18px rgba(43,17,55,.07); color: var(--muted); font-size: .66rem; line-height: 1.25; letter-spacing: .04em; }
+.last-updated time { color: var(--ink); font-size: .83rem; font-weight: 800; letter-spacing: 0; }
 .cover { font-size: clamp(3.5rem,9.7vw,7.7rem); max-width: none; margin-top: 10px; letter-spacing: -.075em; }
 .cycle-line { display: block; height: 1.03em; overflow: hidden; }
 .cycle-track { display: flex; flex-direction: column; width: max-content; animation: title-cycle 10s cubic-bezier(.76,0,.24,1) infinite; }
@@ -169,6 +172,9 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
   section { padding: 26px 18px; }
   section:first-child { padding-top: 25px; }
   .hero-brand img { width: 58px; height: 46px; }
+  .hero-brand span { max-width: 126px; padding-left: 9px; font-size: .58rem; letter-spacing: .06em; line-height: 1.35; }
+  .last-updated { margin-top: 2px; padding: 7px 8px; font-size: .59rem; }
+  .last-updated time { font-size: .7rem; }
   .cover { font-size: clamp(2.45rem,10.5vw,4rem); line-height: .94; margin-bottom: 12px; }
   .club-lights::before { inset: -10% -38% 62% 8%; }
   .star-one { right: 8%; top: 12%; }
