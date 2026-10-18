@@ -96,6 +96,8 @@
 [data-design="bunker"] .rating meter::-webkit-meter-optimum-value { border-radius: 0; }
 [data-design="bunker"] .rating meter::-moz-meter-bar { border-radius: 0; }
 [data-design="bunker"] dialog { border-radius: 0; background: var(--paper); }
+[data-design="bunker"] #version-dialog .release-title { font-family: var(--display); font-weight: 400; font-size: 1.6rem; letter-spacing: .01em; text-transform: uppercase; }
+[data-design="bunker"] #version-dialog .release-title span { border-radius: 0; background: transparent; border: 1px solid var(--teal); font-family: var(--mono); font-weight: 500; }
 /* Keep the latest overview tools and event pop-up in Bunker's poster style. */
 [data-design="bunker"] :is(.filter-toggle,.event-filters,.filter-grid select,.filter-grid input,.filter-count,.genre-chips button,.filter-empty,.view-switch,.view-switch button,.event-calendar,.calendar-nav,.calendar-grid tbody td,.calendar-event,.event-dialog-step,.event-dialog-close),
 [data-design="bunker"] dialog.event-dialog { border-radius: 0; }

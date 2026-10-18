@@ -347,6 +347,9 @@ dialog::backdrop { background: rgba(12,8,17,.7); backdrop-filter: blur(5px); }
 .changelog { list-style: none; padding: 0; color: var(--ink); }
 .changelog li { padding: 10px 0; border-bottom: 1px solid var(--line); line-height: 1.5; font-size: .88rem; }
 .changelog li:last-child { border-bottom: 0; }
+.changelog-release + .changelog-release { margin-top: 10px; border-top: 2px solid var(--line); }
+#version-dialog .release-title { display: flex; align-items: center; gap: 8px; margin: 16px 0 0; font-size: 1.05rem; letter-spacing: -.01em; }
+#version-dialog .release-title span { padding: 1px 8px; border-radius: 999px; background: var(--facts); color: var(--teal); font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .copyright { border-top: 1px solid var(--line); padding-top: 16px; margin: 20px 0 0; font-size: .85rem; }
 .credit-top { border: 0; padding: 0; margin: 0 0 4px; color: var(--muted); font-size: .76rem; }
 @media (max-width: 920px) {
