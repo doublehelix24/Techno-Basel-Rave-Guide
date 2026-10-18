@@ -215,7 +215,7 @@ td { border-color: var(--line); }
 .fit-panel-grid > span { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--line); padding: 4px 0; }
 .fit-panel-grid strong { color: var(--teal); }
 .fit-panel-link { display: inline-block; margin-top: 12px; font-size: .76rem; font-weight: 750; }
-.event-tag { display: block; width: fit-content; margin: 0 0 8px; padding: 4px 11px; border: 1px solid currentColor; border-radius: 999px; color: var(--teal); font-size: .66rem; font-weight: 800; letter-spacing: .08em; line-height: 1.7; text-transform: uppercase; }
+.event-tag { display: block; margin: 0 0 3px; color: var(--teal); font-size: .66rem; font-weight: 800; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; }
 .date-preview { position: relative; display: inline-flex; align-items: center; }
 .date-preview-button { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin-left: -4px; padding: 0 8px; border: 0; background: transparent; color: var(--teal); cursor: pointer; }
 .date-preview-button:hover,.date-preview-button[aria-expanded="true"] { color: var(--purple); }
