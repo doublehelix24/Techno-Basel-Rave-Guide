@@ -8,6 +8,8 @@
   --paper: #f4f2ee; --wash: #eae7e1; --nav: #080808; --head: #080808; --stripe: #f4f2ee;
   --facts: #ecebe6; --facts-line: #d9d5cd; --meter-bg: #d5d1c9; --shadow: none;
   --m1: #a3441b; --m2: #7a5f45; --m3: #6c43c2; --m4: #19695b; --m5: #3b3b3b; --m6: #7f5700; --m7: #b3324a;
+  --g-techno: var(--m1); --g-house: var(--m2); --g-melodic: var(--m3); --g-vocal: var(--m4); --g-trance: var(--m5);
+  --c-hard: #b42318; --c-energy: var(--m6); --c-groove: #2f68b8; --c-underground: #4d7c0f; --c-festival: #a3296f;
   --nav-accent: #ffad8a; --on-accent: #fff; --hero-bg: #ebe8e1; --hero-glow: rgba(163,68,27,.12);
   --beam: rgba(0,0,0,.05); --beam-soft: rgba(0,0,0,.035); --row-hover: #e4e0d8; --panel: #f8f7f4;
   --display: 'Anton', Impact, sans-serif; --mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -19,6 +21,8 @@
     --paper: #0d0d0d; --wash: #080808; --nav: #080808; --head: #080808; --stripe: #0d0d0d;
     --facts: #121212; --facts-line: #262626; --meter-bg: #232323; --shadow: none;
     --m1: #ffad8a; --m2: #e8d5c4; --m3: #c9a7ff; --m4: #9fd6c8; --m5: #f0f0f0; --m6: #ffd27a; --m7: #ff8d9b;
+    --g-techno: var(--m1); --g-house: var(--m2); --g-melodic: var(--m3); --g-vocal: var(--m4); --g-trance: var(--m5);
+    --c-hard: #ff6b6b; --c-energy: var(--m6); --c-groove: #8fc7ff; --c-underground: #b8e986; --c-festival: #ff9ad5;
     --on-accent: #000; --hero-bg: #080808; --hero-glow: rgba(255,173,138,.12);
     --beam: rgba(255,255,255,.07); --beam-soft: rgba(255,255,255,.05); --row-hover: #141414; --panel: #111;
   }
@@ -29,24 +33,15 @@
   --paper: #0d0d0d; --wash: #080808; --nav: #080808; --head: #080808; --stripe: #0d0d0d;
   --facts: #121212; --facts-line: #262626; --meter-bg: #232323; --shadow: none;
   --m1: #ffad8a; --m2: #e8d5c4; --m3: #c9a7ff; --m4: #9fd6c8; --m5: #f0f0f0; --m6: #ffd27a; --m7: #ff8d9b;
+  --g-techno: var(--m1); --g-house: var(--m2); --g-melodic: var(--m3); --g-vocal: var(--m4); --g-trance: var(--m5);
+  --c-hard: #ff6b6b; --c-energy: var(--m6); --c-groove: #8fc7ff; --c-underground: #b8e986; --c-festival: #ff9ad5;
   --on-accent: #000; --hero-bg: #080808; --hero-glow: rgba(255,173,138,.12);
   --beam: rgba(255,255,255,.07); --beam-soft: rgba(255,255,255,.05); --row-hover: #141414; --panel: #111;
 }
 
-/* Taste and character bars, and the matching genre filter pills, use the Bunker palette. */
+/* Genre and trait colours come from the --g-* and --c-* tokens above; guide.css maps them onto the bars,
+   fit previews, filter pills and genre labels. */
 :root[data-design="bunker"] .star { display: none; }
-:root[data-design="bunker"] .taste .rating:nth-child(1),:root[data-design="bunker"] .character .rating:nth-child(1) { --meter-fill: var(--m1); }
-:root[data-design="bunker"] .taste .rating:nth-child(2),:root[data-design="bunker"] .character .rating:nth-child(2) { --meter-fill: var(--m2); }
-:root[data-design="bunker"] .taste .rating:nth-child(3),:root[data-design="bunker"] .character .rating:nth-child(3) { --meter-fill: var(--m3); }
-:root[data-design="bunker"] .taste .rating:nth-child(4),:root[data-design="bunker"] .character .rating:nth-child(4) { --meter-fill: var(--m4); }
-:root[data-design="bunker"] .taste .rating:nth-child(5),:root[data-design="bunker"] .character .rating:nth-child(5) { --meter-fill: var(--m5); }
-:root[data-design="bunker"] .character .rating:nth-child(6) { --meter-fill: var(--m6); }
-:root[data-design="bunker"] .character .rating:nth-child(7) { --meter-fill: var(--m7); }
-:root[data-design="bunker"] [data-genre="Techno"] { --genre-color: var(--m1); }
-:root[data-design="bunker"] [data-genre="House"] { --genre-color: var(--m2); }
-:root[data-design="bunker"] [data-genre="Melodic"] { --genre-color: var(--m3); }
-:root[data-design="bunker"] [data-genre="Vocal"] { --genre-color: var(--m4); }
-:root[data-design="bunker"] [data-genre="Trance"] { --genre-color: var(--m5); }
 :root[data-design="bunker"] .rating meter { box-shadow: none; border-color: transparent; }
 :root[data-design="bunker"] .rating meter::-webkit-meter-bar { box-shadow: none; border-color: transparent; }
 :root[data-design="bunker"] .rating meter::-webkit-meter-optimum-value { box-shadow: none; }
@@ -79,11 +74,9 @@
 [data-design="bunker"] .kicker { font-family: var(--mono); color: var(--teal); font-weight: 500; letter-spacing: .16em; }
 [data-design="bunker"] h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: 0; font-size: clamp(2.6rem, 6vw, 5rem); line-height: .95; }
 [data-design="bunker"] h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: .01em; font-size: 1.8rem; }
+[data-design="bunker"] .quick-links { display: none; }
 [data-design="bunker"] h4 { font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; color: var(--teal); }
 [data-design="bunker"] .character h4 { color: var(--ink); }
-[data-design="bunker"] .quick-links { gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-[data-design="bunker"] .quick-links a { border-radius: 0; border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; box-shadow: none; font-family: var(--mono); font-size: .72rem; font-weight: 500; text-transform: uppercase; padding: 12px 16px; }
-[data-design="bunker"] .quick-links a:hover { background: var(--teal); color: var(--on-accent); transform: none; }
 [data-design="bunker"] .table-wrap { border-radius: 0; border: 0; border-top: 1px solid var(--ink); background: transparent; }
 [data-design="bunker"] th { background: transparent; color: var(--muted); font-family: var(--mono); font-weight: 500; text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; border-bottom: 1px solid var(--line); }
 [data-design="bunker"] .data-table tr:nth-child(odd) td { background: transparent; }
@@ -94,6 +87,10 @@
 [data-design="bunker"] .facts td:first-child { font-family: var(--mono); font-weight: 500; }
 [data-design="bunker"] .fit-button,[data-design="bunker"] .calendar-link { border-radius: 0; font-family: var(--mono); font-size: .75rem; background: transparent; }
 [data-design="bunker"] .fit-panel,[data-design="bunker"] .venue-preview-panel,[data-design="bunker"] .ticket-options-panel,[data-design="bunker"] .artist-panel,[data-design="bunker"] .venue-gallery-card { border-radius: 0; background: var(--panel); }
+[data-design="bunker"] :is(.event-tag,.date-preview-panel) { border-radius: 0; }
+[data-design="bunker"] .event-tag { font-family: var(--mono); font-weight: 500; letter-spacing: .12em; }
+[data-design="bunker"] .date-preview-panel { background: var(--panel); box-shadow: none; }
+[data-design="bunker"] .date-preview-panel > strong,[data-design="bunker"] .date-preview-panel dt { font-family: var(--mono); font-weight: 500; text-transform: uppercase; letter-spacing: .08em; }
 [data-design="bunker"] .rating meter { border-radius: 0; height: 6px; }
 [data-design="bunker"] .rating meter::-webkit-meter-bar { border-radius: 0; height: 6px; }
 [data-design="bunker"] .rating meter::-webkit-meter-optimum-value { border-radius: 0; }
@@ -112,5 +109,4 @@
   [data-design="bunker"] h2 { overflow-wrap: anywhere; }
   [data-design="bunker"] .event-dialog .event-dialog-body > section { padding: 26px 18px; }
   [data-design="bunker"] .overview-table tr:not(:first-child) { border-radius: 0; background: var(--paper); box-shadow: none; }
-  [data-design="bunker"] .quick-links { border-left: 0; }
 }

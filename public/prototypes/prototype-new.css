@@ -206,6 +206,7 @@
 :root[data-variant="H"] .taste .rating:nth-child(n) { --meter-fill: var(--teal); }
 :root[data-variant="H"] .character .rating:nth-child(n) { --meter-fill: var(--purple); }
 :root[data-variant="H"] [data-genre] { --genre-color: var(--teal); }
+:root[data-variant="H"] [data-trait] { --genre-color: var(--purple); }
 :root[data-variant="H"] .rating meter { height: 8px; }
 :root[data-variant="H"] .rating meter::-webkit-meter-bar { height: 8px; }
 @media (max-width: 680px) {

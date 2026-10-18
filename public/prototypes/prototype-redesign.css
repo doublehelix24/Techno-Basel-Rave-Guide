@@ -25,6 +25,11 @@ footer { padding-bottom: 90px !important; }
 :root[data-variant] [data-genre="Melodic"] { --genre-color: var(--m3); }
 :root[data-variant] [data-genre="Vocal"] { --genre-color: var(--m4); }
 :root[data-variant] [data-genre="Trance"] { --genre-color: var(--m5); }
+:root[data-variant] [data-trait="Hardness"] { --genre-color: var(--m1); }
+:root[data-variant] [data-trait="Energy"] { --genre-color: var(--m2); }
+:root[data-variant] [data-trait="Groove"] { --genre-color: var(--m5); }
+:root[data-variant] [data-trait="Underground"] { --genre-color: var(--m6); }
+:root[data-variant] [data-trait="Festival feel"] { --genre-color: var(--m7); }
 :root[data-variant] .rating meter { box-shadow: none; border-color: transparent; }
 :root[data-variant] .rating meter::-webkit-meter-bar { box-shadow: none; border-color: transparent; }
 :root[data-variant] .rating meter::-webkit-meter-optimum-value { box-shadow: none; }

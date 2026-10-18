@@ -11,7 +11,7 @@
     { id: 'page9', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page10', date: '20261219', start: '180000', endDate: '20261220', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page11', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
-    { id: 'page17', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true }
+    { id: 'page17', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
   ];
 
   const venues = {
@@ -671,6 +671,69 @@
     setTimeout(() => URL.revokeObjectURL(url), 30000);
   }
 
+  // Rating labels that name a genre share that genre's colour; the rest are character traits.
+  const RATING_GENRES = { Techno: 'Techno', House: 'House', 'Melodic fans': 'Melodic', 'Vocal fans': 'Vocal', Trance: 'Trance', Melody: 'Melodic', Vocals: 'Vocal' };
+  const clock = time => `${time.slice(0, 2)}:${time.slice(2, 4)}`;
+  const longDate = iso => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+    .format(new Date(`${iso}T00:00:00Z`));
+
+  // The overview date links to the event and discloses its Zürich start and end times.
+  function datePreview(event, date, section) {
+    const wrap = document.createElement('div');
+    wrap.className = 'date-preview';
+    const link = document.createElement('a');
+    link.className = 'date-link';
+    link.href = `#${event.id}`;
+    link.textContent = date;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'date-preview-button';
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-controls', `times-${event.id}`);
+    button.setAttribute('aria-label', `Show start and end times for ${date}`);
+    button.innerHTML = venueChevron;
+    const panel = document.createElement('div');
+    panel.className = 'date-preview-panel';
+    panel.id = `times-${event.id}`;
+    const heading = document.createElement('strong');
+    heading.textContent = longDate(isoDate(event.date));
+    const end = `${event.approximateEnd ? 'about ' : ''}${clock(event.end)}`;
+    const times = [
+      [event.doors ? 'Doors' : 'Start', clock(event.start)],
+      ...(event.show ? [['Show', clock(event.show)]] : []),
+      ['End', event.endDate === event.date ? end : `${dayLabel(isoDate(event.endDate))} · ${end}`]
+    ];
+    const list = document.createElement('dl');
+    times.forEach(([term, value]) => {
+      const entry = document.createElement('div');
+      const dt = document.createElement('dt');
+      dt.textContent = term;
+      const dd = document.createElement('dd');
+      dd.textContent = value;
+      entry.append(dt, dd);
+      list.append(entry);
+    });
+    const note = document.createElement('small');
+    note.textContent = 'Zürich time';
+    const calendar = document.createElement('button');
+    calendar.type = 'button';
+    calendar.className = 'calendar-link';
+    calendar.textContent = 'Save in calendar';
+    calendar.addEventListener('click', () => downloadCalendar(event, section));
+    panel.append(heading, list, note, calendar);
+    wrap.append(link, button, panel);
+    button.addEventListener('click', () => {
+      const open = !wrap.classList.contains('is-open');
+      document.querySelectorAll('.date-preview.is-open').forEach(other => {
+        other.classList.remove('is-open');
+        other.querySelector('.date-preview-button').setAttribute('aria-expanded', 'false');
+      });
+      wrap.classList.toggle('is-open', open);
+      button.setAttribute('aria-expanded', String(open));
+    });
+    return wrap;
+  }
+
   function setupEvents() {
     const rows = [...document.querySelectorAll('.overview-table tr')].slice(1);
     events.forEach((event, index) => {
@@ -681,7 +744,7 @@
       const [dateCell, nameCell, , fitCell, priceCell] = row.cells;
       const date = dateCell.textContent.trim();
       const name = nameCell.querySelector('strong');
-      dateCell.innerHTML = `<a class="date-link" href="#${event.id}">${date}</a>`;
+      dateCell.replaceChildren(datePreview(event, date, section));
       const eventLink = document.createElement('a');
       eventLink.href = `#${event.id}`;
       eventLink.className = 'event-link';
@@ -724,6 +787,8 @@
       grid.className = 'fit-panel-grid';
       ratings.forEach(({ label, value }) => {
         const item = document.createElement('span');
+        if (RATING_GENRES[label]) item.dataset.genre = RATING_GENRES[label];
+        else item.dataset.trait = label;
         const labelNode = document.createElement('span');
         labelNode.textContent = label;
         const valueNode = document.createElement('strong');
@@ -761,6 +826,10 @@
       sectionTop.classList.add('event-header-actions');
       sectionTop.append(actions);
     });
+    const closeDates = () => document.querySelectorAll('.date-preview.is-open').forEach(wrap => {
+      wrap.classList.remove('is-open');
+      wrap.querySelector('.date-preview-button').setAttribute('aria-expanded', 'false');
+    });
     document.addEventListener('click', e => {
       if (!e.target.closest('.fit-wrap')) {
         document.querySelectorAll('.fit-wrap.is-open').forEach(wrap => {
@@ -768,9 +837,11 @@
           wrap.querySelector('button').setAttribute('aria-expanded', 'false');
         });
       }
+      if (!e.target.closest('.date-preview')) closeDates();
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
+        closeDates();
         document.querySelectorAll('.fit-wrap.is-open').forEach(wrap => {
           wrap.classList.remove('is-open');
           wrap.querySelector('button').setAttribute('aria-expanded', 'false');
