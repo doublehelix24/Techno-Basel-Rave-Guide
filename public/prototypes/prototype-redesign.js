@@ -1,4 +1,4 @@
-// PROTOTYPE — throwaway redesign explorer, served from /prototypes/redesign/ only.
+// PROTOTYPE — throwaway redesign explorer, served from /prototypes/ only.
 // Plan: five structurally different redesigns of the existing guide page, switchable via ?variant=,
 // with the current design kept as the baseline. A and B keep the original Techno Circle logo;
 // C, D and E recolor it.
@@ -18,7 +18,7 @@
   // This page lives in a subfolder; guide.js builds venue photos with root-relative file names.
   new MutationObserver(records => records.forEach(r => r.addedNodes.forEach(node => {
     if (node.nodeType !== 1) return;
-    node.querySelectorAll('img[src^="venue-"]').forEach(img => { img.src = `../../${img.getAttribute('src')}`; });
+    node.querySelectorAll('img[src^="venue-"]').forEach(img => { img.src = `../${img.getAttribute('src')}`; });
   }))).observe(document.documentElement, { childList: true, subtree: true });
 
   const requested = (params.get('variant') || 'A').toUpperCase();
