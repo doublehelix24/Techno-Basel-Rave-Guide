@@ -4,7 +4,7 @@ This repository is a static event guide hosted on Netlify. Netlify's publish dir
 
 ## Editing the guide
 
-- The permanent site name is “Techno | Zürich | Basel After Dark.” The title cycles through Techno, Zürich, and Basel; Basel is marked as upcoming. Techno Circle Basel is the guide's brand.
+- The permanent site name is “Techno | Zürich | Basel After Dark.” The title cycles through Techno, Zürich, and Basel; Basel is live and no longer marked as upcoming. Techno Circle Basel is the guide's brand.
 - The supplied logo PNG has a dark outer matte. The logo display in `public/guide.css` clips to the colored roundel so it looks clean on light backgrounds; preserve that treatment or use a transparent replacement.
 - The page has OS-based dark mode with a saved manual override. Keep the mobile layout, keyboard access, and `prefers-reduced-motion` treatment when changing interactions or animation. Mobile navigation links and controls need at least 44px tap targets. Keep the mobile navigation a text menu without pill/button styling or horizontal scrolling; use two rows on narrow phones.
 - The overview rows, event detail sections, venue comparison, comparisons, and source directory live in `public/index.html`. Keep the venue section after the event details. Calendar data lives in the ordered `events` array in `public/guide.js`; its order must match the overview rows. Each event needs a matching section ID and downloadable calendar invite. Keep “Save in calendar” in each event header beside the back-to-overview link. The overview has no separate jump links: its second column is “Artist / venue”, named events carry an `event-tag` in the “Musical identity” cell, and each date discloses its start and end times.

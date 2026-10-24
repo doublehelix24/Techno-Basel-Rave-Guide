@@ -2,6 +2,7 @@
   'use strict';
 
   const events = [
+    { id: 'page19', slug: 'third-party', date: '20261106', start: '230000', endDate: '20261107', end: '050000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
     { id: 'page4', slug: 'warehouse-grand-opening', date: '20261114', start: '180000', endDate: '20261115', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page5', slug: 'axwell', date: '20261121', start: '180000', endDate: '20261122', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page6', slug: 'hugel', date: '20261127', start: '180000', endDate: '20261128', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
@@ -10,6 +11,8 @@
     { id: 'page8', slug: 'artbat-miss-monique', date: '20261204', start: '180000', endDate: '20261205', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page9', slug: 'mahmut-orhan', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page10', slug: 'warehouse-closing', date: '20261219', start: '180000', endDate: '20261220', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page20', slug: 'andrea-oliva', date: '20261226', start: '230000', endDate: '20261227', end: '070000', location: 'Nordstern, Westquaistrasse 19, 4057 Basel', approximateEnd: true },
+    { id: 'page21', slug: 'rave-love', date: '20270115', start: '230000', endDate: '20270116', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
     { id: 'page11', slug: 'paul-van-dyk', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
     { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
   ];
@@ -18,7 +21,8 @@
     'MÄX': { id: 'venue-maex', image: 'venue-maex.jpg', alt: 'MÄX club interior with an open dancefloor, stage and galleries on both sides', description: 'Industrial dancefloor, stage and gallery', source: 'https://www.maag-moments.ch/maag/de/halle-mieten/maag-halle/club.html', website: 'https://maexzuerich.com/', credit: 'MAAG Moments' },
     'Warehouse ZRH': { id: 'venue-warehouse', image: 'venue-warehouse.webp', alt: 'Warehouse ZRH illuminated promotional sign', description: 'Temporary superclub · opening November 2026', source: 'https://www.warehousezrh.com/', credit: 'Warehouse ZRH', creditLabel: 'Image', note: 'Official promotional image; the venue has not opened yet.' },
     'Kaufleuten': { id: 'venue-kaufleuten', image: 'venue-kaufleuten.jpg', alt: 'Red-and-gold Kaufleuten Klubsaal with gallery', description: 'The classic red-and-gold Klubsaal', source: 'https://kaufleuten.ch/anlass-und-bankett/klubsaal/', credit: 'Kaufleuten Zürich' },
-    'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' }
+    'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' },
+    'Nordstern': { id: 'venue-nordstern', image: 'venue-nordstern.webp', alt: 'Empty Nordstern club room with the DJ booth, speakers and white light panels', description: 'Club on a converted Rhine cargo ship', source: 'https://www.nordstern.com/', credit: 'Nordstern' }
   };
 
   // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
@@ -672,7 +676,7 @@
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     const description = [
-      event.doors ? 'Doors 18:30; show 20:00–22:30.' : 'Event times are local to Zürich.',
+      event.doors ? 'Doors 18:30; show 20:00–22:30.' : 'Event times are Swiss local time (Europe/Zurich).',
       event.approximateEnd ? 'End time is approximate.' : '',
       'Check the event page and ticket terms before travelling.',
       sourceUrl || ''
