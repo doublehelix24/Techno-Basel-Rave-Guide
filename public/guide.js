@@ -2,10 +2,10 @@
   'use strict';
 
   const events = [
-    { id: 'page3', slug: 'techno-to-trance', date: '20261024', start: '230000', endDate: '20261025', end: '060000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
     { id: 'page4', slug: 'warehouse-grand-opening', date: '20261114', start: '180000', endDate: '20261115', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page5', slug: 'axwell', date: '20261121', start: '180000', endDate: '20261122', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page6', slug: 'hugel', date: '20261127', start: '180000', endDate: '20261128', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page18', slug: 'pencil', date: '20261127', start: '230000', endDate: '20261128', end: '070000', location: 'MÄX, Hardstrasse 219, 8005 Zürich' },
     { id: 'page7', slug: 'charlotte-de-witte', date: '20261128', start: '180000', endDate: '20261129', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page8', slug: 'artbat-miss-monique', date: '20261204', start: '180000', endDate: '20261205', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page9', slug: 'mahmut-orhan', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
@@ -23,9 +23,6 @@
 
   // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
   const artists = {
-    'ALT8': { spotify: '7uS4z6GqvIIdZbVq327Ak9', image: '4718be17a7426036ce46be48', youtube: 'alt8music' },
-    'Kichta': { spotify: '7q6gx2J7fy969LK4hGRw8Y', image: 'e90ad4dc96f7baa52a69589d', youtube: 'kichtaofficial' },
-    'ROW1': { spotify: '0UuarPj3exthni2ZBHrRqj', image: 'e223cc6091b3d7cbce36edaf' },
     'Marco Carola': { spotify: '2p8O7NCyfWf1sIZamrU9N1', image: '26e409c252b0f57d3c64b38b', youtube: 'marcocarolaofficial' },
     'Loco Dice': { spotify: '4rbw4Z9Hjn6n9x5oYzZe7P', image: 'e7ddcc2ca4285d89e0c97c68', youtube: 'LocoDiceOFC' },
     'Seth Troxler': { spotify: '3JkLFcTej6tdwZoQT6Nx4B', image: 'ae415c295c042f2193594a8e', youtube: 'sethtroxlermusic' },
