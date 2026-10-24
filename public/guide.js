@@ -2,16 +2,16 @@
   'use strict';
 
   const events = [
-    { id: 'page3', date: '20261024', start: '230000', endDate: '20261025', end: '060000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
-    { id: 'page4', date: '20261114', start: '180000', endDate: '20261115', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page5', date: '20261121', start: '180000', endDate: '20261122', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page6', date: '20261127', start: '180000', endDate: '20261128', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page7', date: '20261128', start: '180000', endDate: '20261129', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page8', date: '20261204', start: '180000', endDate: '20261205', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page9', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page10', date: '20261219', start: '180000', endDate: '20261220', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
-    { id: 'page11', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
-    { id: 'page17', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
+    { id: 'page3', slug: 'techno-to-trance', date: '20261024', start: '230000', endDate: '20261025', end: '060000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
+    { id: 'page4', slug: 'warehouse-grand-opening', date: '20261114', start: '180000', endDate: '20261115', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page5', slug: 'axwell', date: '20261121', start: '180000', endDate: '20261122', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page6', slug: 'hugel', date: '20261127', start: '180000', endDate: '20261128', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page7', slug: 'charlotte-de-witte', date: '20261128', start: '180000', endDate: '20261129', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page8', slug: 'artbat-miss-monique', date: '20261204', start: '180000', endDate: '20261205', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page9', slug: 'mahmut-orhan', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page10', slug: 'warehouse-closing', date: '20261219', start: '180000', endDate: '20261220', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page11', slug: 'paul-van-dyk', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
+    { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
   ];
 
   const venues = {
@@ -547,8 +547,15 @@
 
   // Opens an event's detail section in a modal. The section itself moves into the dialog so its
   // controls keep working, and returns to its place in the page when the dialog closes.
+  // Readable event links such as #axwell open that event's pop-up, and the address follows the open event.
   function setupEventDialog(items, matches) {
-    if (!items.length || !window.HTMLDialogElement) return;
+    if (!items.length) return;
+    const bySlug = new Map(items.map(item => [item.slug, item]));
+    const linked = () => bySlug.get(decodeURIComponent(location.hash.slice(1)));
+    if (!window.HTMLDialogElement) {
+      linked()?.section.scrollIntoView();
+      return;
+    }
     const byId = new Map(items.map(item => [item.id, item]));
     const dialog = document.createElement('dialog');
     dialog.className = 'event-dialog';
@@ -597,6 +604,7 @@
         button.title = target ? target.title : '';
       });
       body.scrollTop = 0;
+      if (linked() !== item) history.replaceState(history.state, '', `#${item.slug}`);
       if (!dialog.open) {
         dialog.showModal();
         document.documentElement.classList.add('has-event-dialog');
@@ -607,6 +615,7 @@
       restore();
       current = null;
       document.documentElement.classList.remove('has-event-dialog');
+      if (linked()) history.replaceState(history.state, '', location.pathname + location.search);
     });
     dialog.querySelector('.event-dialog-close').addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => {
@@ -633,6 +642,32 @@
         if (link.closest('.section-top')) event.preventDefault();
         dialog.close();
       }
+    });
+    window.addEventListener('hashchange', () => {
+      const item = linked();
+      if (item && item !== current) show(item);
+    });
+    const initial = linked();
+    if (initial) show(initial);
+  }
+
+  const eventUrl = event => `${location.origin}${location.pathname}#${event.slug}`;
+  // Phones get the system share sheet; elsewhere the event link is copied to the clipboard.
+  function shareEvent(event, title, button) {
+    const url = eventUrl(event);
+    if (navigator.share && matchMedia('(pointer: coarse)').matches) {
+      navigator.share({ title: `${title} · Techno After Dark`, url }).catch(() => {});
+      return;
+    }
+    const flash = text => {
+      button.textContent = text;
+      clearTimeout(button.resetTimer);
+      button.resetTimer = setTimeout(() => { button.textContent = 'Share event'; }, 2500);
+    };
+    const copied = navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject();
+    copied.then(() => flash('Link copied'), () => {
+      history.replaceState(history.state, '', `#${event.slug}`);
+      flash('Copy the address bar link');
     });
   }
 
@@ -829,7 +864,14 @@
       calendar.className = 'calendar-link';
       calendar.textContent = 'Save in calendar';
       calendar.addEventListener('click', () => downloadCalendar(event, section));
-      actions.append(calendar);
+      const share = document.createElement('button');
+      share.type = 'button';
+      share.className = 'calendar-link share-link';
+      share.textContent = 'Share event';
+      share.title = `Copy a direct link to ${name.textContent}`;
+      share.setAttribute('aria-live', 'polite');
+      share.addEventListener('click', () => shareEvent(event, name.textContent, share));
+      actions.append(calendar, share);
       const sectionTop = section.querySelector('.section-top');
       sectionTop.classList.add('event-header-actions');
       sectionTop.append(actions);
