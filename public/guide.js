@@ -2,27 +2,33 @@
   'use strict';
 
   const events = [
-    { id: 'page19', slug: 'third-party', date: '20261106', start: '230000', endDate: '20261107', end: '050000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
-    { id: 'page4', slug: 'warehouse-grand-opening', date: '20261114', start: '180000', endDate: '20261115', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page5', slug: 'axwell', date: '20261121', start: '180000', endDate: '20261122', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page6', slug: 'hugel', date: '20261127', start: '180000', endDate: '20261128', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page18', slug: 'pencil', date: '20261127', start: '230000', endDate: '20261128', end: '070000', location: 'MÄX, Hardstrasse 219, 8005 Zürich' },
     { id: 'page7', slug: 'charlotte-de-witte', date: '20261128', start: '180000', endDate: '20261129', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
     { id: 'page8', slug: 'artbat-miss-monique', date: '20261204', start: '180000', endDate: '20261205', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page22', slug: 'techno-to-trance', date: '20261204', start: '230000', endDate: '20261205', end: '060000', location: 'MÄX, Hardstrasse 219, 8005 Zürich', approximateEnd: true },
     { id: 'page9', slug: 'mahmut-orhan', date: '20261205', start: '180000', endDate: '20261206', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page23', slug: 'good-morning-club', date: '20261206', start: '110000', endDate: '20261206', end: '180000', location: 'Acqua, Binningerstrasse 14, 4051 Basel' },
+    { id: 'page24', slug: 'peggy-gou', date: '20261212', start: '180000', endDate: '20261213', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich', approximateEnd: true },
+    { id: 'page25', slug: 'chris-stassy', date: '20261218', start: '220000', endDate: '20261219', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
     { id: 'page10', slug: 'warehouse-closing', date: '20261219', start: '180000', endDate: '20261220', end: '040000', location: 'Warehouse ZRH, Vulkanstrasse 126, 8048 Zürich' },
+    { id: 'page26', slug: 'deborah-de-luca', date: '20261219', start: '230000', endDate: '20261220', end: '060000', location: 'Nordstern, Westquaistrasse 19, 4057 Basel', approximateEnd: true },
     { id: 'page20', slug: 'andrea-oliva', date: '20261226', start: '230000', endDate: '20261227', end: '070000', location: 'Nordstern, Westquaistrasse 19, 4057 Basel', approximateEnd: true },
     { id: 'page21', slug: 'rave-love', date: '20270115', start: '230000', endDate: '20270116', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
     { id: 'page11', slug: 'paul-van-dyk', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
-    { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
+    { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' },
+    { id: 'page27', slug: 'bunt', date: '20270226', start: '180000', endDate: '20270226', end: '230000', location: 'Hallenstadion, Wallisellenstrasse 45, 8050 Zürich', doors: true, show: '200000', approximateEnd: true }
   ];
 
   const venues = {
     'MÄX': { id: 'venue-maex', image: 'venue-maex.jpg', alt: 'MÄX club interior with an open dancefloor, stage and galleries on both sides', description: 'Industrial dancefloor, stage and gallery', source: 'https://www.maag-moments.ch/maag/de/halle-mieten/maag-halle/club.html', website: 'https://maexzuerich.com/', credit: 'MAAG Moments' },
-    'Warehouse ZRH': { id: 'venue-warehouse', image: 'venue-warehouse.webp', alt: 'Warehouse ZRH illuminated promotional sign', description: 'Temporary superclub · opening November 2026', source: 'https://www.warehousezrh.com/', credit: 'Warehouse ZRH', creditLabel: 'Image', note: 'Official promotional image; the venue has not opened yet.' },
+    'Warehouse ZRH': { id: 'venue-warehouse', image: 'venue-warehouse.webp', alt: 'Warehouse ZRH illuminated promotional sign', description: 'Temporary superclub · until 19 December 2026', source: 'https://www.warehousezrh.com/', credit: 'Warehouse ZRH', creditLabel: 'Image', note: 'Official pre-opening promotional image, not a photo of the finished venue.' },
     'Kaufleuten': { id: 'venue-kaufleuten', image: 'venue-kaufleuten.jpg', alt: 'Red-and-gold Kaufleuten Klubsaal with gallery', description: 'The classic red-and-gold Klubsaal', source: 'https://kaufleuten.ch/anlass-und-bankett/klubsaal/', credit: 'Kaufleuten Zürich' },
     'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' },
-    'Nordstern': { id: 'venue-nordstern', image: 'venue-nordstern.webp', alt: 'Empty Nordstern club room with the DJ booth, speakers and white light panels', description: 'Club on a converted Rhine cargo ship', source: 'https://www.nordstern.com/', credit: 'Nordstern' }
+    'Nordstern': { id: 'venue-nordstern', image: 'venue-nordstern.webp', alt: 'Empty Nordstern club room with the DJ booth, speakers and white light panels', description: 'Club on a converted Rhine cargo ship', source: 'https://www.nordstern.com/', credit: 'Nordstern' },
+    'Acqua': { id: 'venue-acqua', image: 'venue-acqua.webp', alt: 'Acqua’s long, high-ceilinged hall in the former Basel waterworks, with skylights, chandeliers and rows of tables', description: 'Restaurant and lounge in Basel’s former waterworks', source: 'https://www.acquabasel.ch/', credit: 'Acqua Basel' },
+    'Hallenstadion': { id: 'venue-hallenstadion', image: 'venue-hallenstadion.webp', alt: 'Hallenstadion in concert layout, with a full standing floor, stage lighting and tiered stands around the arena', description: 'Zürich’s largest indoor arena', source: 'https://hallenstadion.ch/media_pages/gallery/', credit: 'Hallenstadion Zürich', website: 'https://hallenstadion.ch/' }
   };
 
   // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
@@ -511,7 +517,7 @@
         link.querySelector('time').dateTime = item.iso;
         link.querySelector('time').textContent = dayLabel(item.iso);
         link.querySelector('strong').textContent = item.title;
-        link.querySelector('span').textContent = `${item.venue} · CHF ${item.price.toFixed(2)}`;
+        link.querySelector('span').textContent = `${item.venue} · ${Number.isFinite(item.price) ? `CHF ${item.price.toFixed(2)}` : 'price TBC'}`;
         entry.append(link);
         return entry;
       }));
@@ -676,7 +682,7 @@
   function calendarText(event, title, sourceUrl) {
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     const description = [
-      event.doors ? 'Doors 18:30; show 20:00–22:30.' : 'Event times are Swiss local time (Europe/Zurich).',
+      event.doors ? `Doors ${clock(event.start)}; show ${clock(event.show)}${event.approximateEnd ? '' : `–${clock(event.end)}`}.` : 'Event times are Swiss local time (Europe/Zurich).',
       event.approximateEnd ? 'End time is approximate.' : '',
       'Check the event page and ticket terms before travelling.',
       sourceUrl || ''
@@ -806,7 +812,8 @@
           priceCell.replaceChildren(priceLink);
         }
         priceLink.href = saleLink.href;
-        priceLink.setAttribute('aria-label', `${name.textContent} tickets from CHF ${priceLink.textContent.trim()}`);
+        const amount = priceLink.textContent.trim();
+        priceLink.setAttribute('aria-label', Number.isFinite(parseFloat(amount)) ? `${name.textContent} tickets from CHF ${amount}` : `${name.textContent} tickets, price to be confirmed`);
       }
 
       const score = fitCell.textContent.trim();
