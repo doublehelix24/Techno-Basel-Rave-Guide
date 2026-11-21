@@ -17,8 +17,7 @@
     { id: 'page20', slug: 'andrea-oliva', date: '20261226', start: '230000', endDate: '20261227', end: '070000', location: 'Nordstern, Westquaistrasse 19, 4057 Basel', approximateEnd: true },
     { id: 'page21', slug: 'rave-love', date: '20270115', start: '230000', endDate: '20270116', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
     { id: 'page11', slug: 'paul-van-dyk', date: '20270122', start: '220000', endDate: '20270123', end: '050000', location: 'Kaufleuten Klubsaal, Pelikanplatz, 8001 Zürich' },
-    { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' },
-    { id: 'page27', slug: 'bunt', date: '20270226', start: '180000', endDate: '20270226', end: '230000', location: 'Hallenstadion, Wallisellenstrasse 45, 8050 Zürich', doors: true, show: '200000', approximateEnd: true }
+    { id: 'page17', slug: 'john-summit', date: '20270220', start: '183000', endDate: '20270220', end: '223000', location: 'Halle 622, Therese-Giehse-Strasse 10, 8050 Zürich', doors: true, show: '200000' }
   ];
 
   const venues = {
@@ -27,8 +26,7 @@
     'Kaufleuten': { id: 'venue-kaufleuten', image: 'venue-kaufleuten.jpg', alt: 'Red-and-gold Kaufleuten Klubsaal with gallery', description: 'The classic red-and-gold Klubsaal', source: 'https://kaufleuten.ch/anlass-und-bankett/klubsaal/', credit: 'Kaufleuten Zürich' },
     'Halle 622': { id: 'venue-halle622', image: 'venue-halle622.webp', alt: 'Open floor and colorful lighting inside Halle 622', description: 'A spacious industrial concert hall', source: 'https://www.livenation.de/en/halle-622-tickets-vdp987139', credit: 'Live Nation', website: 'https://www.halle622.ch/' },
     'Nordstern': { id: 'venue-nordstern', image: 'venue-nordstern.webp', alt: 'Empty Nordstern club room with the DJ booth, speakers and white light panels', description: 'Club on a converted Rhine cargo ship', source: 'https://www.nordstern.com/', credit: 'Nordstern' },
-    'Acqua': { id: 'venue-acqua', image: 'venue-acqua.webp', alt: 'Acqua’s long, high-ceilinged hall in the former Basel waterworks, with skylights, chandeliers and rows of tables', description: 'Restaurant and lounge in Basel’s former waterworks', source: 'https://www.acquabasel.ch/', credit: 'Acqua Basel' },
-    'Hallenstadion': { id: 'venue-hallenstadion', image: 'venue-hallenstadion.webp', alt: 'Hallenstadion in concert layout, with a full standing floor, stage lighting and tiered stands around the arena', description: 'Zürich’s largest indoor arena', source: 'https://hallenstadion.ch/media_pages/gallery/', credit: 'Hallenstadion Zürich', website: 'https://hallenstadion.ch/' }
+    'Acqua': { id: 'venue-acqua', image: 'venue-acqua.webp', alt: 'Acqua’s long, high-ceilinged hall in the former Basel waterworks, with skylights, chandeliers and rows of tables', description: 'Restaurant and lounge in Basel’s former waterworks', source: 'https://www.acquabasel.ch/', credit: 'Acqua Basel' }
   };
 
   // Official artist profiles keyed by the line-up name. Omit a platform when no official profile was verified.
