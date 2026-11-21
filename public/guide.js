@@ -656,7 +656,9 @@
     if (initial) show(initial);
   }
 
-  const eventUrl = event => `${location.origin}${location.pathname}#${event.slug}`;
+  // Shared links use the generated /e/<slug>/ pages: chat apps never see a #fragment, so only those pages
+  // carry an event-specific preview card. Each one forwards to /#<slug>.
+  const eventUrl = event => `${location.origin}/e/${event.slug}/`;
   // Phones get the system share sheet; elsewhere the event link is copied to the clipboard.
   function shareEvent(event, title, button) {
     const url = eventUrl(event);
